@@ -1,0 +1,31 @@
+﻿<MudForm Model="@Model" @ref="@Form" Validation="@(Validator.ValidateValue)" ValidationDelay="0">
+    <MudGrid Justify="Justify.Center">
+        <MudItem xs="12">
+            <MudCard>
+                <MudCardHeader>
+                    <MudText Typo="Typo.body1">@FormTitle</MudText>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudTextField Label="Announcement Subject"
+                                  Variant="Variant.Text"
+                                  InputType="InputType.Text"
+                                  Placeholder="Enter Subject..."
+                                  @bind-Value="Model.Subject"
+                                  For="@(() => Model.Subject)" />
+                    <MudTextField Label="Announcement Message"
+                                  Variant="Variant.Text"
+                                  InputType="InputType.Text"
+                                  Placeholder="Enter Message..."
+                                  @bind-Value="Model.Message"
+                                  For="@(() => Model.Message)"
+                                  Lines="10" />
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton Variant="Variant.Text"
+                               Color="Color.Primary"
+                               OnClick="Submit">@ButtonTitle</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
+</MudForm>

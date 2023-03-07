@@ -1,0 +1,104 @@
+﻿@page "/events"
+@using Application.Dtos.BasicDtos.Responses;
+<MudContainer>
+    <MudTable T="BasicEventDTO" Items="Events" Hover="true" Loading="@LoadingBar" LoadingProgressColor=Color.Success Dense="@DenseItems" SortBy="Sorty By" Filter="new Func<BasicEventDTO, bool>(FilterFuncShort)" @bind-SelectedItem="SelectedElement" OnRowClick="NavigateToSpecificEvent">
+        <ToolBarContent>
+            <MudText Typo="Typo.h6">Events</MudText>
+            <MudSpacer />
+            <MudTextField @bind-Value="SearchValue"
+                          Placeholder="Search"
+                          Adornment="Adornment.Start"
+                          AdornmentIcon="@Icons.Material.Filled.Search"
+                          IconSize="Size.Medium"
+                          Class="mt-0"></MudTextField>
+        </ToolBarContent>
+        <HeaderContent>
+            <MudTh>
+                Event Profile Picture
+            </MudTh>
+            <MudTh>
+                <MudTableSortLabel SortBy="new Func<BasicEventDTO, object>(x=> x.EventName)">
+                    Event Name
+                </MudTableSortLabel>
+            </MudTh>
+            <MudTh>
+                <MudTableSortLabel SortBy="new Func<BasicEventDTO, object>(x => x.EventGoal)">
+                    Event Goal
+                </MudTableSortLabel>
+            </MudTh>
+            <MudTh>
+                <MudTableSortLabel SortBy="new Func<BasicEventDTO,object>(x => x.EventStartDate)">
+                    Event Start Date
+                </MudTableSortLabel>
+            </MudTh>
+            <MudTh>
+                <MudTableSortLabel SortBy="new Func<BasicEventDTO,object>(x => x.EventEndDate)">
+                    Event End Date
+                </MudTableSortLabel>
+            </MudTh>
+            <MudTh>
+                <MudTableSortLabel SortBy="new Func<BasicEventDTO,object>(x => x.EventDesc)">
+                    Event Description
+                </MudTableSortLabel>
+            </MudTh>
+            <MudTh>
+                <MudTableSortLabel SortBy="new Func<BasicEventDTO,object>(x => x.Status.Name)">
+                    Event Status Name
+                </MudTableSortLabel>
+            </MudTh>
+            <AuthorizeView>
+                <Authorized>
+                    <MudTh>
+
+                    </MudTh>
+                </Authorized>
+            </AuthorizeView>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Event Profile Picture"><MudAvatar Color=Color.Secondary Image="@context.Base64dataPicture">@context.EventName[..1]</MudAvatar></MudTd>
+            <MudTd DataLabel="Event Name">@context.EventName</MudTd>
+            <MudTd DataLabel="Event Goal">@context.EventGoal</MudTd>
+            <MudTd DataLabel="Event Start Date">@context.EventStartDate.Value.ToLongDateString()</MudTd>
+            <MudTd DataLabel="Event End Date">@context.EventEndDate.Value.ToLongDateString()</MudTd>
+            <MudTd DataLabel="Event Description">@context.EventDesc</MudTd>
+            <MudTd DataLabel="Event Status Name">@context.Status.Name</MudTd>
+            <AuthorizeView Context="authContext">
+                <Authorized>
+                    <MudTd>
+                        <MudMenu Variant="Variant.Outlined" Icon="@Icons.Material.Outlined.Edit" IconColor="Color.Primary">
+                            @if (!LoggedUserEvents.Contains(context))
+                            {
+                                <MudMenuItem OnClick="@(() => JoinToEvent(context))">Join</MudMenuItem>
+                            }
+                            else
+                            {
+                                <MudMenuItem OnClick="@(() => LeaveTheEvent(context))">Leave</MudMenuItem>
+                            }
+                        </MudMenu>
+                    </MudTd>
+                </Authorized>
+            </AuthorizeView>
+        </RowTemplate>
+        <PagerContent>
+            <MudTablePager />
+        </PagerContent>
+        <NoRecordsContent>
+            <MudText Color="Color.Error">There is no data in database</MudText>
+        </NoRecordsContent>
+    </MudTable>
+    <div class="d-flex flex-wrap mt-4">
+        <MudSwitch @bind-Checked="@DenseItems"
+                   Color="Color.Primary">Dense</MudSwitch>
+        <MudSpacer />
+        <AuthorizeView>
+            <Authorized>
+                <MudButton Variant="Variant.Filled"
+                           Color="Color.Primary"
+                           OnClick="@(() => NavigationManager.NavigateTo("/event/create"))">Create Event</MudButton>
+            </Authorized>
+        </AuthorizeView>
+    </div>
+    <MudScrollToTop>
+        <MudFab Color="Color.Primary" Icon="@Icons.Filled.ArrowCircleUp" />
+    </MudScrollToTop>
+</MudContainer>

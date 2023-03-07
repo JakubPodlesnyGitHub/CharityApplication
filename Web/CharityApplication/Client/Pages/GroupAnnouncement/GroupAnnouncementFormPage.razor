@@ -1,0 +1,17 @@
+﻿@page "/groupannouncement/create/{IdGroup:int}"
+@page "/groupannouncement/edit/{IdGroup:int}/{IdGroupAnnouncement:int}"
+@attribute [Authorize]
+@using CharityApplication.Client.Shared.GroupAnnouncement
+<MudContainer Fixed=true>
+    @if (IdGroupAnnouncement <= 0 && IdGroup >0)
+    {
+        <GroupAnnouncementFormComponent FormState="FormState.CREATE" IdGroup="IdGroup" />
+    }
+    else
+    {
+        <GroupAnnouncementFormComponent FormState="FormState.EDIT" IdGroupAnnouncement="IdGroupAnnouncement" IdGroup="IdGroup" />
+    }
+    <MudScrollToTop>
+        <MudFab Color="Color.Primary" Icon="@Icons.Filled.ArrowCircleUp" />
+    </MudScrollToTop>
+</MudContainer>

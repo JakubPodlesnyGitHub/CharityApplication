@@ -1,0 +1,27 @@
+﻿<MudDialog>
+    <DialogContent>
+        <MudCard>
+            <MudCardContent>
+                <MudImage ObjectFit="ImageFit" Width="@(SetWidth ? ImageWidth : null)" Src="@ImageURL" Elevation="25" Class="rounded-lg" />
+            </MudCardContent>
+            <MudCardActions>
+                <InputFile id="picture-inputfile" OnChange="@OnChanged" style="display:none;" />
+                <div class="d-block justify-space-between align-center ml-8 mr-8 mt-4">
+                    <MudText Align="Align.Left">@SelectedFileName</MudText>
+                    <label for="picture-inputfile" class="mud-button mud-button-filled mud-button-filled-primary mud-button-filled-size-medium">
+                        Chose File
+                    </label>
+                </div>
+                <div class="d-block justify-space-between align-center ml-8 mr-8 mt-4">
+                    <MudText>Width: @(SetWidth ? $"{ImageWidth}px" : "Auto")</MudText>
+                        <MudSwitch @bind-Checked="@SetWidth" Color="Color.Primary" Class="mr-0" />
+                        <MudSlider @bind-Value="@ImageWidth" Disabled="@(!SetWidth)" Max="400" Color="Color.Primary" />
+                    </div>
+                </MudCardActions>
+            </MudCard>
+        </DialogContent>
+        <DialogActions>
+            <MudButton Color=Color.Error OnClick="Cancel">Cancel</MudButton>
+            <MudButton Color="@Color" Variant="Variant.Filled" OnClick="Submit">@ButtonText</MudButton>
+        </DialogActions>
+    </MudDialog>

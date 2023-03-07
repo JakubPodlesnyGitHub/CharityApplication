@@ -1,0 +1,88 @@
+﻿@page "/modules"
+@using Application.Dtos.BasicDtos.Responses;
+
+<MudContainer Fixed=true>
+    <MudTable T="BasicModuleDTO" Items="@Modules" Hover="true" Loading="@LoadingBar" LoadingProgressColor=Color.Success Dense="@DenseItems" SortBy="Sorty By" Filter="new Func<BasicModuleDTO, bool>(FilterFuncShort)" @bind-SelectedItem="SelectedElement" Breakpoint="Breakpoint.Sm">
+        <ToolBarContent>
+            <MudText Typo="Typo.h6">Modules</MudText>
+            <MudSpacer />
+            <MudTextField @bind-Value="SearchValue"
+                          Placeholder="Search"
+                          Adornment="Adornment.Start"
+                          AdornmentIcon="@Icons.Material.Filled.Search"
+                          IconSize="Size.Medium"
+                          Class="mt-0"></MudTextField>
+        </ToolBarContent>
+        <HeaderContent>
+            <MudTh>
+                Module Picture
+            </MudTh>
+            <MudTh>
+                <MudTableSortLabel SortBy="new Func<BasicModuleDTO, object>(x =>x.ModuleName)">
+                    Module Name
+                </MudTableSortLabel>
+            </MudTh>
+            <MudTh>
+                <MudTableSortLabel SortBy="new Func<BasicModuleDTO, object>(x =>x.ModuleDesc)">
+                    Module Description
+                </MudTableSortLabel>
+            </MudTh>
+            <MudTh></MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Module Picture"><MudAvatar Color=Color.Secondary Image="@context.Base64dataPicture">@context.ModuleName[..1]</MudAvatar></MudTd>
+            <MudTd DataLabel="Module Name">@context.ModuleName</MudTd>
+            <MudTd DataLabel="Module Description">@context.ModuleDesc</MudTd>
+            <MudTd><MudSwitch T="bool" CheckedChanged="@(() => ShowBtnSwipe(context))" Color="Color.Success" /></MudTd>
+        </RowTemplate>
+        <PagerContent>
+            <MudTablePager />
+        </PagerContent>
+        <NoRecordsContent>
+            <MudText Color="Color.Error">
+                There is no data in database
+            </MudText>
+        </NoRecordsContent>
+        <ChildRowContent>
+            @if (context.ShowModuleProperties)
+            {
+                <MudTr>
+                    <td colspan="4">
+                        <MudCard>
+                            <MudCardHeader>
+                                <CardHeaderContent>
+                                    <MudText Typo="Typo.body1">Module Data And Properties For <strong>@context.ModuleName</strong></MudText>
+                                </CardHeaderContent>
+                            </MudCardHeader>
+                            <MudCardContent>
+                                <MudTable Items="Properties" Context="ModulePoropertyContext" Hover="true">
+                                    <HeaderContent>
+                                        <MudTh>Property Type</MudTh>
+                                        <MudTh>Property Name</MudTh>
+                                    </HeaderContent>
+                                    <RowTemplate>
+                                        <MudTd DataLabel="Property Type">@GetPropertyType(ModulePoropertyContext.PropertyType)</MudTd>
+                                        <MudTd DataLabel="Property Name">@ModulePoropertyContext.Name</MudTd>
+                                    </RowTemplate>
+                                    <NoRecordsContent>
+                                        <MudText Color="Color.Error">
+                                            There is no module properties
+                                        </MudText>
+                                    </NoRecordsContent>
+                                </MudTable>
+                            </MudCardContent>
+                        </MudCard>
+                    </td>
+                </MudTr>
+            }
+        </ChildRowContent>
+    </MudTable>
+    <div class="d-flex flex-wrap mt-4">
+        <MudSwitch @bind-Checked="@DenseItems"
+                   Color="Color.Primary">Dense</MudSwitch>
+        <MudSpacer />
+    </div>
+    <MudScrollToTop>
+        <MudFab Color="Color.Primary" Icon="@Icons.Filled.ArrowCircleUp" />
+    </MudScrollToTop>
+</MudContainer>

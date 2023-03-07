@@ -1,0 +1,37 @@
+﻿<MudList Clickable=@IsClickable Disabled=@IsDisabled>
+    <MudListSubheader>
+        <MudText Align="Align.Left" Typo="Typo.body1">@ListTitle</MudText>
+        <MudSpacer />
+        <MudButton OnClick="@(() => NavigationManager.NavigateTo($"/groupannouncement/create/{GroupId}"))" Variant=Variant.Filled Color="Color.Primary">Create Announcement</MudButton>
+    </MudListSubheader>
+    @if (GroupAnnouncements.Any())
+    {
+        @foreach (var announcement in GroupAnnouncements)
+        {
+            <MudListItem Disabled=@IsDisabled>
+                <MudCard>
+                    <MudCardHeader>
+                        <CardHeaderContent>
+                            <MudText Align="Align.Left" Typo="Typo.body1">@announcement.Subject</MudText>
+                        </CardHeaderContent>
+                        <CardHeaderActions>
+                            <MudMenu Icon="@Icons.Material.Filled.Settings" Color="Color.Primary" Label="Options">
+                                <MudMenuItem OnClick="@(() =>Delete(announcement.IdGroupAnnouncement))">Delete</MudMenuItem>
+                                <MudMenuItem OnClick="@(() => NavigationManager.NavigateTo($"/groupannouncement/edit/{GroupId}/{announcement.IdGroupAnnouncement}"))">Edit</MudMenuItem>
+                            </MudMenu>
+                        </CardHeaderActions>
+                    </MudCardHeader>
+                    <MudCardContent>
+                        <MudField Label="Creation Date" Variant="Variant.Text">@announcement.CreationDate.ToLongDateString()</MudField>
+                        <MudField Label="Message" Variant="Variant.Text">@announcement.Message</MudField>
+                    </MudCardContent>
+                </MudCard>
+            </MudListItem>
+        }
+    }
+    else
+    {
+        <MudChip Color="Color.Error" Icon="@Icons.Material.Filled.Error" Text="There are no provided data" />
+    }
+
+</MudList>

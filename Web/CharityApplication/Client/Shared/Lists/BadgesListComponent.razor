@@ -1,0 +1,31 @@
+﻿<MudList Clickable=@IsDisabled Disabled=@IsDisabled>
+    <MudListSubheader>
+        <MudText Align="Align.Left" Typo="Typo.body1">@ListTitle</MudText>
+    </MudListSubheader>
+    @if (Badges.Any())
+    {
+        @foreach (var badge in Badges)
+        {
+            <MudListItem Disabled=@IsDisabled>
+                <MudCard>
+                    <MudCardHeader>
+                        <CardHeaderAvatar>
+                            <MudAvatar Image="@badge.Base64dataPicture"
+                               Color="Color.Secondary">
+                                @(badge.Name[..1])
+                            </MudAvatar>
+                        </CardHeaderAvatar>
+                        <CardHeaderContent>
+                            <MudText>@badge.Name</MudText>
+                            <MudText>@badge.BadgeGoal</MudText>
+                        </CardHeaderContent>
+                    </MudCardHeader>
+                </MudCard>
+            </MudListItem>
+        }
+    }
+    else
+    {
+        <MudChip Color="Color.Error" Icon="@Icons.Material.Filled.Error" Text="There are no provided data" />
+    }
+</MudList>

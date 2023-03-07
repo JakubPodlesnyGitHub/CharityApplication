@@ -1,0 +1,47 @@
+﻿<MudDialog>
+    <DialogContent>
+        <MudCard Elevation="0">
+            <MudCardHeader>
+                <CardHeaderContent>
+                    <MudText Align="Align.Left" Typo="Typo.body1">Support the event</MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+            <MudForm Model="@Model" @ref="@Form" Validation="@(Validator.ValidateValue)" ValidationDelay="0">
+                <MudCardContent>
+                    <MudNumericField T=double
+                                     Min="1"
+                                     Format="N2"
+                                     AdornmentIcon="@Icons.Material.Filled.AttachMoney"
+                                     Adornment="Adornment.End"
+                                     @bind-Value="Model.Donation"
+                                     For="@(() => Model.Donation)" />
+                    <MudTextField Label="Card Number"
+                                  Variant="Variant.Text"
+                                  @bind-Value="Model.CardNr"
+                                  InputType="InputType.Text"
+                                  Adornment="Adornment.End"
+                                  AdornmentIcon="@Icons.Material.Filled.CreditCard"
+                                  For="@(() => Model.CardNr)" />
+                    <MudDatePicker Label="Card Expiration Date"
+                                   AdornmentIcon="@Icons.Material.Filled.CalendarToday"
+                                   Adornment="Adornment.End"
+                                   PickerVariant="PickerVariant.Dialog"
+                                   Orientation="Orientation.Portrait"
+                                   @bind-Date="Model.ExpirationDate"
+                                   For="@(() => Model.ExpirationDate)" />
+                    <MudTextField Label="CSV"
+                                  Placeholder="e.g. xxx"
+                                  Variant="Variant.Text"
+                                  @bind-Value="Model.CSV"
+                                  InputType="InputType.Text"
+                                  Adornment="Adornment.End"
+                                  For="@(() => Model.CSV)" />
+                </MudCardContent>
+            </MudForm>
+        </MudCard>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Success" Variant="Variant.Filled" OnClick="Submit">Donate</MudButton>
+    </DialogActions>
+</MudDialog>

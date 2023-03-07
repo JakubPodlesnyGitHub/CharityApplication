@@ -1,0 +1,26 @@
+﻿<MudCard Elevation="0" Outlined=true>
+    <MudCardHeader>
+        <CardHeaderContent>
+            <MudText GutterBottom=true Align="Align.Left" Typo="Typo.body1">Event Timeline</MudText>
+        </CardHeaderContent>
+    </MudCardHeader>
+    <MudCardContent>
+        <MudTimeline TimelineOrientation="TimelineOrientation.Horizontal" TimelinePosition="TimelinePosition.Top">
+            <MudTimelineItem Color="Color.Warning" Size=Size.Medium Elevation="1" Variant="Variant.Filled" HideDot="@(!planned)" TimelineAlign="TimelineAlign.End">
+                <ItemContent>
+                    <MudField Disabled="@(!planned)" Variant=Variant.Text DisableUnderLine=true >Planned</MudField>
+                </ItemContent>
+            </MudTimelineItem>
+            <MudTimelineItem Color="Color.Success" Size=Size.Medium Elevation="1" Variant="Variant.Filled" HideDot="@(!inprogress)" TimelineAlign="TimelineAlign.End">
+                <ItemContent>
+                    <MudField Disabled="@(!inprogress)" Variant=Variant.Text DisableUnderLine=true >In Progress</MudField>
+                </ItemContent>
+            </MudTimelineItem>
+            <MudTimelineItem Color="Color.Error" Size=Size.Medium Elevation="1" Variant="Variant.Filled" HideDot="@(!ended)" TimelineAlign="TimelineAlign.End">
+                <ItemContent>
+                    <MudField Disabled="@(!ended)" Variant=Variant.Text DisableUnderLine=true >Ended</MudField>
+                </ItemContent>
+            </MudTimelineItem>
+        </MudTimeline>
+    </MudCardContent>
+</MudCard>

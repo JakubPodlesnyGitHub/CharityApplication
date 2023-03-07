@@ -1,0 +1,36 @@
+﻿@page "/account-verification-document/{IdAccount:int}"
+@using CharityApplication.Shared.Enums;
+@attribute [Authorize]
+<MudContainer Fixed="true">
+    <MudGrid Justify="Justify.Center">
+        <MudItem xs="12">
+            <MudSelect T="DocumentType" Label="Document Type" AnchorOrigin="Origin.BottomCenter" @bind-Value="DocumentType">
+                <MudSelectItem Value="DocumentType.Passport" />
+                <MudSelectItem Value="DocumentType.IdCard" />
+            </MudSelect>
+        </MudItem>
+        <MudItem xs="6">
+            <MudButton Color="Color.Primary"
+                       StartIcon="@Icons.Material.Outlined.Image"
+                       OnClick="UploadFrontImage"
+                       Variant="Variant.Filled"
+                       Size="Size.Large">Upload Front Image</MudButton>
+        </MudItem>
+        <MudItem xs="6">
+            <MudButton Color="Color.Primary"
+                       StartIcon="@Icons.Material.Outlined.Image"
+                       Variant="Variant.Filled"
+                       OnClick="UploadBackImage"
+                       Size="Size.Large">Upload Back Image</MudButton>
+        </MudItem>
+        <MudItem xs="3">
+            <MudButton OnClick="Submit"
+                       Variant="Variant.Filled"
+                       StartIcon="@Icons.Material.Filled.CloudUpload"
+                       Color="Color.Primary">Verify</MudButton>
+        </MudItem>
+    </MudGrid>
+    <MudScrollToTop>
+        <MudFab Color="Color.Primary" Icon="@Icons.Filled.ArrowCircleUp" />
+    </MudScrollToTop>
+</MudContainer>

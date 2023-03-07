@@ -1,0 +1,7 @@
+::deep .parent-background {
+    background-color: inherit !important;
+}
+
+::deep .button-color {
+    color: white !important;
+}

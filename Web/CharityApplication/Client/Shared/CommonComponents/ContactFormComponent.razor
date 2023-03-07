@@ -1,0 +1,32 @@
+﻿<MudCard>
+    <MudForm Model="@Model" @ref="@Form" Validation="@(Validator.ValidateValue)" ValidationDelay="0">
+        <MudCardHeader Class="align-content-lg-center">
+            IF YOU HAVE A QUESTION, WRITE TO US
+        </MudCardHeader>
+        <MudCardContent>
+            <MudTextField Label="First Name"
+                          @bind-Value="Model.FirstName"
+                          For="@(() => Model.FirstName)" />
+            <MudTextField Label="Last Name"
+                          @bind-Value="Model.LastName"
+                          For="@(() => Model.LastName)" />
+            <MudTextField Label="Mail"
+                          @bind-Value="Model.Mail"
+                          For="@(() => Model.Mail)" />
+            <MudTextField Label="Subject"
+                          @bind-Value="Model.Subject"
+                          For="@(() => Model.Subject)"
+                          Lines="2" />
+            <MudTextField Label="Message"
+                          @bind-Value="Model.Message"
+                          For="@(() =>  Model.Subject)"
+                          Lines="8" />
+        </MudCardContent>
+    </MudForm>
+    <MudCardActions>
+        <MudButton OnClick="Submit"
+                   Variant="Variant.Filled"
+                   Color="Color.Primary"
+                   Size="Size.Large">Send</MudButton>
+    </MudCardActions>
+</MudCard>

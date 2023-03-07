@@ -1,0 +1,31 @@
+﻿<MudList Clickable=@IsClickable Disabled=@IsDisabled>
+    <MudListSubheader>
+        <MudText Align="Align.Left" Typo="Typo.body1">@ListTitle</MudText>
+    </MudListSubheader>
+    @if (Groups.Any())
+    {
+        @foreach (var group in Groups)
+        {
+            <MudListItem OnClick="@(() => NavigationManager.NavigateTo($"/group/{group.IdGroup}"))" Disabled=@IsDisabled>
+                <MudCard>
+                    <MudCardHeader>
+                        <CardHeaderAvatar>
+                            <MudAvatar Image="@group.Base64dataPicture"
+                               Color="Color.Secondary">
+                                @group.GroupName.Name.Substring(0,1)
+                            </MudAvatar>
+                        </CardHeaderAvatar>
+                        <CardHeaderContent>
+                            <MudText>@group.GroupName.Name</MudText>
+                        </CardHeaderContent>
+                    </MudCardHeader>
+                </MudCard>
+            </MudListItem>
+        }
+    }
+    else
+    {
+        <MudChip Color="Color.Error" Icon="@Icons.Material.Filled.Error" Text="There are no provided data" />
+    }
+
+</MudList>

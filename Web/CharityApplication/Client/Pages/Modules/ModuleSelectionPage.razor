@@ -1,0 +1,15 @@
+﻿@page "/modules-selection/{IdEvent:int}"
+@page "/modules-selection/{IdEvent:int}/{EventEdition:bool}"
+@attribute [Authorize]
+@using CharityApplication.Client.Shared.Modules
+
+<MudContainer Fixed=true>
+    @if(EventEdition){
+        <EventModulesTableComponent IdEvent="IdEvent" FormState="FormState.EDIT" />
+    }else{
+        <EventModulesTableComponent IdEvent="IdEvent" FormState="FormState.CREATE" />
+    }
+    <MudScrollToTop>
+        <MudFab Color="Color.Primary" Icon="@Icons.Filled.ArrowCircleUp" />
+    </MudScrollToTop>
+</MudContainer>

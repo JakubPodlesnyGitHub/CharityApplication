@@ -1,0 +1,117 @@
+﻿@page "/event/{IdEvent:int}"
+@attribute [Authorize]
+@using CharityApplication.Client.Shared.Modules
+<MudContainer Fixed=true>
+    @if (Event is not null)
+    {
+        <MudGrid>
+            <MudItem xs="12">
+                <MudCard>
+                    <MudCardHeader>
+                        <CardHeaderAvatar>
+                            <MudAvatar>
+                                <MudAvatar Image="@Event.Base64dataPicture"
+                                       Color="Color.Secondary">
+                                    @Event.EventName.Substring(0, 1)
+                                </MudAvatar>
+                            </MudAvatar>
+                        </CardHeaderAvatar>
+                        <CardHeaderContent>
+                            <MudText Align="Align.Left">@Event.EventName</MudText>
+                        </CardHeaderContent>
+                        <CardHeaderActions>
+                            <MudMenu Icon="@Icons.Material.Filled.Settings" Color="Color.Primary" Label="Options">
+                                <MudMenuItem OnClick="OpenDialogInvitationLink">Invite Person By Link</MudMenuItem>
+                                @if (EventWrapper.QrCodeModule is not null && EventWrapper.QrCodeModule.IfPresence && !EventAccounts.Any())
+                                {
+                                    <MudMenuItem OnClick="ShowQrCode">Qr</MudMenuItem>
+                                }
+                                @if (Event.IdEventOwner == LoggedUser.IdAccount)
+                                {
+                                    <MudMenuItem OnClick="DeleteEvent">Delete</MudMenuItem>
+                                    <MudMenuItem OnClick="@(() => NavigationManager.NavigateTo($"/event/edit/{IdEvent}"))">Edit</MudMenuItem>
+                                }
+                                @if (!EventAccounts.Any())
+                                {
+                                    <MudMenuItem OnClick="JoinToEvent">Joint To Event</MudMenuItem>
+                                }
+                                else
+                                {
+                                    <MudMenuItem OnClick="LeaveTheEvent">Leave The Event</MudMenuItem>
+                                }
+                                <MudMenuItem OnClick="ShowDonationBox">Support This Event</MudMenuItem>
+                            </MudMenu>
+                        </CardHeaderActions>
+                    </MudCardHeader>
+                    <MudCardContent>
+                        <MudField Label="Administrator" Variant="Variant.Text">
+                            <MudLink OnClick="@(() => NavigationManager.NavigateTo($"/account/{Event.IdEventOwner}"))" Underline="Underline.Hover">
+                                @($"{NavigationManager.BaseUri}account/{Event.IdEventOwner}")
+                            </MudLink>
+                        </MudField>
+                        <MudField Label="Event Goal" Variant="Variant.Text">@Event.EventGoal</MudField>
+                        <MudField Label="Event Start Date" Variant="Variant.Text">@Event.EventStartDate.Value.ToLongDateString()</MudField>
+                        <MudField Label="Event End Date" Variant="Variant.Text">@Event.EventEndDate.Value.ToLongDateString()</MudField>
+                        <MudField Label="Event Status" Variant="Variant.Text">@Event.Status.Name</MudField>
+                    </MudCardContent>
+                </MudCard>
+            </MudItem>
+            <MudItem xs="12">
+                <EventTimelineComponent Event="Event" />
+            </MudItem>
+            <MudItem xs="12">
+                <MudPaper>
+                    <MudField Label="Event Description" Variant="Variant.Text">@Event.EventDesc</MudField>
+                </MudPaper>
+            </MudItem>
+            <MudItem xs="6">
+                <EventModulesTableComponent Event="Event" EventWrapper="EventWrapper" />
+            </MudItem>
+            <MudItem xs="6">
+                <AccountsByEventIdListComponent EventId="IdEvent" IsClickable=true IsDisabled=false ListTitle="Partcipants" />
+            </MudItem>
+            <MudItem xs="12">
+                <GroupsByEventIdListComponent IsClickable=true IsDisabled=false EventId="IdEvent" ListTitle="Participating Groups" />
+            </MudItem>
+            <MudItem xs="12">
+                <EventAnnouncementsListComponent EventId="IdEvent" ListTitle="Announcements" IsClickable=false IsDisabled="false" />
+            </MudItem>
+            @if (EventWrapper.LocationModule is not null && !string.IsNullOrEmpty(EventWrapper.LocationModule.OriginAddress))
+            {
+                <MudItem xs="12">
+                    <GoogleMapComponent OriginAddress="@EventWrapper.LocationModule.OriginAddress" DestinationAddress="@EventWrapper.LocationModule.DestinationAddress" />
+                </MudItem>
+            }
+            @if (EventWrapper.AttendanceListModule is not null &&
+           EventWrapper.AttendanceListModule.IfPresence &&
+           Event.IdEventOwner == LoggedUser.IdAccount)
+            {
+                <MudItem xs="12">
+                    <AttendanceListComponent IdEvent="IdEvent" />
+                </MudItem>
+            }
+            @if (EventWrapper.FoundraizerModule is not null)
+            {
+                <MudItem xs="12">
+                    <FoundraizerComponent FoundraizerWrapper="EventWrapper.FoundraizerModule" />
+                </MudItem>
+            }
+            @if (EventWrapper.OnlineEventModule is not null && EventWrapper.OnlineEventModule.IfPresence)
+            {
+                <MudItem xs="12">
+                    <EventOnlineComponent />
+                </MudItem>
+            }
+            @if (EventWrapper.AssesmentFormModule is not null && EventWrapper.AssesmentFormModule.IfPresence)
+            {
+                <MudItem xs="12">
+                    <AssessmentFormListComponent EventDTO="Event" IdLoggedAccount="LoggedUser.IdAccount" IsClickable=false IsDisabled=false ListTitle="Assessments Forms" />
+                </MudItem>
+            }
+
+        </MudGrid>
+        <MudScrollToTop>
+            <MudFab Color="Color.Primary" Icon="@Icons.Filled.ArrowCircleUp" />
+        </MudScrollToTop>
+    }
+</MudContainer>

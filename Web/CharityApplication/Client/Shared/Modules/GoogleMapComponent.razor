@@ -1,0 +1,27 @@
+﻿<MudCard>
+    <MudCardHeader Class="d-block mb-2">
+        <MudField Variant="Variant.Outlined" AdornmentColor="Color.Primary" AdornmentIcon="@Icons.Material.Filled.Place" IconSize="Size.Medium" Label="Orign Address">@OriginAddress</MudField>
+        @if (!string.IsNullOrEmpty(DestinationAddress))
+        {
+            <MudField Variant="Variant.Outlined" AdornmentColor="Color.Primary" AdornmentIcon="@Icons.Material.Filled.Place" IconSize="Size.Medium" Label="Destination Address">@DestinationAddress</MudField>
+            <MudSelect T="string" Label="Select Travell Mode" Value="TravelMode" Variant="Variant.Outlined" ValueChanged="ChengedURL">
+                <MudSelectItem Value="@("driving")" />
+                <MudSelectItem Value="@("walking")" />
+                <MudSelectItem Value="@("bicycling")" />
+                <MudSelectItem Value="@("transit")" />
+                <MudSelectItem Value="@("flying")" />
+            </MudSelect>
+        }
+    </MudCardHeader>
+    <MudCardContent>
+        <MudPaper Class="rounded">
+            <div class="google-maps">
+                <iframe src="@GoogleMapURL"
+                        style="border:0;"
+                        allowfullscreen=""
+                        loading="lazy"></iframe>
+            </div>
+        </MudPaper>
+    </MudCardContent>
+</MudCard>
+

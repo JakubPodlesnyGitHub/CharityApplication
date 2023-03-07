@@ -1,0 +1,18 @@
+﻿@page "/assessmentform/create/{IdEvent:int}"
+@page "/assessmentform/edit/{IdEvent:int}/{IdAssessmentForm:int}"
+@attribute [Authorize]
+@using CharityApplication.Client.Shared.Modules
+
+<MudContainer Fixed=true>
+    @if (IdEvent > 0 && IdAssessmentForm <= 0)
+    {
+        <AssessmentFormComponent FormState="CharityApplication.Shared.Enums.FormState.CREATE" IdEvent="IdEvent" />
+    }
+    else
+    {
+        <AssessmentFormComponent FormState="CharityApplication.Shared.Enums.FormState.EDIT" IdEvent="IdEvent" IdAssessmentForm="IdAssessmentForm" />
+    }
+    <MudScrollToTop>
+        <MudFab Color="Color.Primary" Icon="@Icons.Filled.ArrowCircleUp" />
+    </MudScrollToTop>
+</MudContainer>

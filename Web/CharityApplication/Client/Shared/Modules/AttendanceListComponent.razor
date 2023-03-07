@@ -1,0 +1,41 @@
+﻿@using Application.Dtos.BasicDtos.Responses;
+<MudCard>
+    <MudCardContent>
+        <MudTable T="BasicAccountDTO" @ref="Table" Items="@Accounts" Hover="true" OnRowClick="@((e) => OnRowClick(e))" FixedHeader=true Height="400px">
+            <ToolBarContent>
+                <MudText Typo="Typo.h6">Attendance List</MudText>
+            </ToolBarContent>
+            <HeaderContent>
+                <MudTh>
+                    Account Profile Picture
+                </MudTh>
+                <MudTh>
+                    Name
+                </MudTh>
+                <MudTh>
+                    Mail
+                </MudTh>
+                <MudTh>
+                    Account Type
+                </MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Account Profile Picture"><MudAvatar Color=Color.Secondary Image="@context.Base64dataPicture">@context.AccountCredentials</MudAvatar></MudTd>
+                <MudTd DataLabel="Name">@(context.PrivateAccount is not null ? $"{context.PrivateAccount.FirstName} {context.PrivateAccount.LastName}" : context.CompanyAccount.Name)</MudTd>
+                    <MudTd DataLabel="Mail">@context.Email</MudTd>
+                    <MudTd DataLabel="Account Type">@(context.PrivateAccount is not null ? "Private Account" : "Company Account")</MudTd>
+                </RowTemplate>
+                <PagerContent>
+                    <MudTablePager />
+                </PagerContent>
+                <NoRecordsContent>
+                    <MudText Color="Color.Error">
+                        There is no data in database
+                    </MudText>
+                </NoRecordsContent>
+                <FooterContent>
+                    <MudTd colspan="5">Select All</MudTd>
+                </FooterContent>
+            </MudTable>
+        </MudCardContent>
+</MudCard>

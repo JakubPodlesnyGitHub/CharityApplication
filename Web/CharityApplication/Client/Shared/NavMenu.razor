@@ -1,0 +1,97 @@
+﻿@using System.Security.Claims;
+<MudThemeProvider @bind-IsDarkMode=IsDarkMode Theme="@Theme" />
+<MudAppBar>
+    <AuthorizeView>
+        <Authorized>
+            <MudLink OnClick="@(()=> NavigationManager.NavigateTo("/mainpage"))">
+                <MudImage Src="Images/CharityApplicationLogo.jpg"
+                          Alt="CharityApplicationLogo"
+                          Class="rounded-lg"
+                          Width="IMAGE_WIDTH"
+                          Height="IMAGE_HEIGHT" />
+            </MudLink>
+        </Authorized>
+        <NotAuthorized>
+            <MudLink OnClick="@(()=> NavigationManager.NavigateTo("/"))">
+                <MudImage Src="Images/CharityApplicationLogo.jpg"
+                          Alt="CharityApplicationLogo"
+                          Class="rounded-lg"
+                          Width="IMAGE_WIDTH"
+                          Height="IMAGE_HEIGHT" />
+            </MudLink>
+        </NotAuthorized>
+    </AuthorizeView>
+    <MudSpacer />
+    <span>
+        <MudPaper Elevation="0" Class="d-flex gap-15 flex-row pa-0 parent-background">
+            <AuthorizeView>
+                <Authorized>
+                    <MudButton Class="button-color"
+                               ButtonType="ButtonType.Button"
+                               Variant="Variant.Text"
+                               OnClick="@(() => NavigationManager.NavigateTo("/mainpage"))">Main Page</MudButton>
+                </Authorized>
+                <NotAuthorized>
+                    <MudButton Class="button-color"
+                               ButtonType="ButtonType.Button"
+                               Variant="Variant.Text"
+                               OnClick="@(() => NavigationManager.NavigateTo("/"))">Main Page</MudButton>
+                </NotAuthorized>
+            </AuthorizeView>
+            <MudButton Class="button-color"
+                       ButtonType="ButtonType.Button"
+                       Variant="Variant.Text"
+                       OnClick="@(() => NavigationManager.NavigateTo("/events"))">Events</MudButton>
+            <MudButton Class="button-color"
+                       ButtonType="ButtonType.Button"
+                       Variant="Variant.Text"
+                       OnClick="@(() => NavigationManager.NavigateTo("/modules"))">Modules</MudButton>
+            <MudButton Class="button-color"
+                       ButtonType="ButtonType.Button"
+                       Variant="Variant.Text"
+                       OnClick="@(() => NavigationManager.NavigateTo("/groups"))">Groups</MudButton>
+            <MudButton Class="button-color"
+                       ButtonType="ButtonType.Button"
+                       Variant="Variant.Text"
+                       OnClick="@(() => NavigationManager.NavigateTo("/charityapplication/faq"))">FAQ</MudButton>
+        </MudPaper>
+    </span>
+    <MudSpacer />
+    <MudIconButton OnClick="ChangeDisplayMode" Icon="@ModeIcon" />
+    <span>
+        <AuthorizeView>
+            <Authorized>
+                @if (Account is not null)
+                {
+                    <MudMenu Dense="true">
+                        <ActivatorContent>
+                            <MudAvatar Image="@Account.Base64dataPicture"
+                                   Color="Color.Secondary">
+                                @(Account.AccountCredentials)
+                            </MudAvatar>
+                        </ActivatorContent>
+                        <ChildContent>
+                            <MudNavMenu>
+                                <MudNavLink OnClick="@(() => NavigationManager.NavigateTo($"/account/{Account.IdAccount}"))">Profile</MudNavLink>
+                                <MudNavLink OnClick="@(() => NavigationManager.NavigateTo("/chat"))">Comunicator</MudNavLink>
+                                <MudNavGroup Title="Event">
+                                    <MudNavLink OnClick="@(() => NavigationManager.NavigateTo("/event/create"))">Create Event</MudNavLink>
+                                    <MudNavLink OnClick="@(() => NavigationManager.NavigateTo("/events"))">Join To Event</MudNavLink>
+                                </MudNavGroup>
+                                <MudNavGroup Title="Group">
+                                    <MudNavLink OnClick="@(() => NavigationManager.NavigateTo("/group/create"))">Create Group</MudNavLink>
+                                    <MudNavLink OnClick="@(() => NavigationManager.NavigateTo("/groups"))">Join To Group</MudNavLink>
+                                </MudNavGroup>
+                                <MudNavLink Icon="@Icons.Filled.Logout" OnClick="Logout">Logout</MudNavLink>
+                            </MudNavMenu>
+                        </ChildContent>
+                    </MudMenu>
+                }
+            </Authorized>
+            <NotAuthorized>
+                <MudIconButton Class="button-color" Icon="@Icons.Rounded.Person" Variant="Variant.Text" Size="Size.Medium" OnClick="@(() => NavigationManager.NavigateTo("/login"))"></MudIconButton>
+            </NotAuthorized>
+        </AuthorizeView>
+
+    </span>
+</MudAppBar>

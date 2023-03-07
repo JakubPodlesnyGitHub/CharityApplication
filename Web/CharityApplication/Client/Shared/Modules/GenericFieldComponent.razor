@@ -1,0 +1,46 @@
+﻿@using CharityApplication.Shared.Enums;
+@if (PropertyType == typeof(bool) || PropertyType == typeof(bool?))
+{
+    <MudSwitch T="bool"
+           CheckedChanged="@((e) => Property.SetValue(ModuleWrapper,e))"
+           Checked="(bool)Property.GetValue(ModuleWrapper)"
+           Label="@PropertyName"
+           Color="Color.Success"
+           UnCheckedColor="Color.Error" />
+}
+else if (PropertyType == typeof(int) || PropertyType == typeof(int?))
+{
+    <MudNumericField Label="@PropertyName"
+                 T="int?"
+                 Value="(int?)Property.GetValue(ModuleWrapper)"
+                 Variant="Variant.Text"
+                 Min="1"
+                 ValueChanged="@((e) => Property.SetValue(ModuleWrapper,e))" />
+}
+else if (PropertyType == typeof(DateTime) || PropertyType == typeof(DateTime?))
+{
+    <MudDatePicker Label="@PropertyName"
+               Date="(DateTime)Property.GetValue(ModuleWrapper)"
+               PickerVariant="PickerVariant.Dialog"
+               Orientation="Orientation.Portrait"
+               DateChanged="@((e) => Property.SetValue(ModuleWrapper,e))" />
+}
+else if (PropertyType == typeof(string) || PropertyType == typeof(string))
+{
+    <MudTextField Label="@PropertyName"
+              T="string"
+              Value="(string)Property.GetValue(ModuleWrapper)"
+              Variant="Variant.Text"
+              InputType="InputType.Text"
+              TextChanged="@((e) => Property.SetValue(ModuleWrapper,e))" />
+}
+else if (PropertyType == typeof(double) || PropertyType == typeof(double?))
+{
+    <MudNumericField Label="@PropertyName"
+                 T="double"
+                 Value="(double)Property.GetValue(ModuleWrapper)"
+                 Variant="Variant.Text"
+                 Min="1"
+                 Format="N2"
+                 ValueChanged="@((e) => Property.SetValue(ModuleWrapper,e))" />
+}

@@ -1,0 +1,49 @@
+﻿<MudList Clickable=@IsClickable Disabled=@IsDisabled>
+    <MudListSubheader>
+        <MudText Align="Align.Left" Typo="Typo.body1">@ListTitle</MudText>
+        <MudSpacer />
+        @if(EventDTO.IdEventOwner != IdLoggedAccount)
+        {
+            <MudButton Variant=Variant.Filled Color="Color.Primary" OnClick="@(() => NavigationManager.NavigateTo($"/assessmentform/create/{EventDTO.IdEvent}"))">Create Assessment Form</MudButton>
+        }   
+    </MudListSubheader>
+    @if (AssesmentForms.Any())
+    {
+        @foreach (var assesmentform in AssesmentForms)
+        {
+            <MudListItem Disabled=@IsDisabled>
+                <MudCard>
+                    <MudCardHeader>
+                        <CardHeaderContent>
+                            <MudText Align="Align.Left" Typo="Typo.body1">@assesmentform.Mail</MudText>
+                        </CardHeaderContent>
+                        <CardHeaderActions>
+                            <MudMenu Icon="@Icons.Material.Filled.Settings" Color="Color.Primary" Label="Options">
+                                <MudMenuItem OnClick="@(() => Delete(assesmentform.IdAssesmentForm))">Delete</MudMenuItem>
+                                @if(assesmentform.IdOwner == IdLoggedAccount){
+                                    <MudMenuItem OnClick="@(() => NavigationManager.NavigateTo($"/assessmentform/edit/{EventDTO.IdEvent}/{assesmentform.IdAssesmentForm}"))">Edit</MudMenuItem>
+                                }
+                            </MudMenu>
+                        </CardHeaderActions>
+                    </MudCardHeader>
+                    <MudCardContent>
+                        <MudText Align="Align.Left" Typo="Typo.body1">@assesmentform.Subject</MudText>
+                        <MudField Label="Message" Variant="Variant.Text">@assesmentform.Message</MudField>
+                        <div class="d-flex flex-column align-left">
+                            <MudText Typo="Typo.subtitle1">App Rate</MudText>
+                            <MudRating @bind-SelectedValue="assesmentform.AppRate" ReadOnly=true MaxValue="10" Size="Size.Medium" Name="App Rate" />
+                        </div>
+                        <div class="d-flex flex-column align-left">
+                            <MudText Typo="Typo.subtitle1">Event Rate</MudText>
+                            <MudRating @bind-SelectedValue="assesmentform.EventRate" ReadOnly=true MaxValue="10" Size="Size.Medium" Name="Event Rate" />
+                        </div>
+                    </MudCardContent>
+                </MudCard>
+            </MudListItem>
+        }
+    }
+    else
+    {
+        <MudChip Color="Color.Error" Icon="@Icons.Material.Filled.Error" Text="There are no provided data" />
+    }
+</MudList>

@@ -1,0 +1,163 @@
+﻿@page "/"
+<MudContainer Fixed=true>
+    <MudGrid Justify="Justify.Center">
+        <MudItem xs="12">
+            <SearchBarComponent />
+        </MudItem>
+        <MudItem xs="12">
+            <MudCarousel Class="mud-width-full rounded" Style="height:400px;" ShowArrows=true ShowBullets=true EnableSwipeGesture=true AutoCycle=true TData="object">
+                <MudCarouselItem Transition="Transition.Slide" Color="Color.Primary">
+                    <div class="d-flex mud-height-full">
+                        <MudImage Class="mx-auto my-auto" Fluid=true Src="Images/Index/pic3.png" />
+                    </div>
+                </MudCarouselItem>
+                <MudCarouselItem Transition="Transition.Slide" Color="Color.Secondary">
+                    <div class="d-flex mud-height-full">
+                        <MudImage Class="mx-auto my-auto" Fluid=true Src="Images/Index/pic3.png" />
+                    </div>
+                </MudCarouselItem>
+                <MudCarouselItem Transition="Transition.Slide">
+                    <div class="d-flex mud-height-full">
+                        <MudImage Class="mx-auto my-auto" Fluid=true Src="Images/Index/pic3.png" />
+                    </div>
+                </MudCarouselItem>
+            </MudCarousel>
+        </MudItem>
+        <MudItem xs=6>
+            <MudCard Elevation="0" Class="pt-8">
+                <MudCardContent Class="align-center justify-center">
+                    <MudText Align="Align.Center" Typo="Typo.body1">
+                        SOCIAL ASSISTANCE HAS NEVER BEEN SO SIMPLE
+                    </MudText>
+                    <MudText Align="Align.Center" Typo="Typo.body2">
+                        You want to help those in need, but at the same time you don't have much time to organize a charity event or fundraiser.
+                        You can already help many people with little effort.
+                        Join our community.
+                    </MudText>
+                </MudCardContent>
+                <MudCardActions Class="align-center justify-center gap-2">
+                    <MudButton Variant="Variant.Filled"
+                               Color="Color.Primary"
+                               Size="Size.Large"
+                               OnClick="@(() => NavigationManager.NavigateTo("/accountplan/selection"))">
+                        Sign Up
+                    </MudButton>
+                    OR
+                    <MudButton Variant="Variant.Filled"
+                               Color="Color.Primary"
+                               Size="Size.Large"
+                               OnClick="@(() => NavigationManager.NavigateTo("/login"))">
+                        Sing In
+                    </MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+        <MudItem xs="6">
+            <MudImage Fluid="true" Src="Images/Index/CharityCommunity.png" Alt="CharityCommunity" Class="rounded-lg" />
+        </MudItem>
+        <MudItem xs="12" Class="d-block align-center justify-center py-8">
+            <MudText Align="Align.Center" Typo="Typo.body1">
+                HELP PEOPLE IN NEED
+            </MudText>
+            <MudText Align="Align.Center" Typo="Typo.body2">
+                Charity Application is a free application that aims to support legal entities in organizing various types of charity events.
+                It offers several available functionalities, some of which are listed below.
+            </MudText>
+        </MudItem>
+        <MudItem xs="12">
+            <MudStack Row=true>
+                <MudCard Elevation="0">
+                    <MudCardMedia Image="Images/Index/schedule.png" Class="align-center justify-center">
+                    </MudCardMedia>
+                    <MudCardContent Class="align-center justify-center">
+                        <MudText Align="Align.Center" Typo="Typo.body1">
+                            FOLLOW YOUR CHARITY ACTIVITIES
+                        </MudText>
+                        <MudText Align="Align.Center" Typo="Typo.body2">
+                            Create, join and find charity events. Together with our application you have everything at your fingertips.
+                        </MudText>
+                    </MudCardContent>
+                </MudCard>
+                <MudCard Elevation="0">
+                    <MudCardMedia Image="Images/Index/medal.png" Class="align-center justify-center">
+                    </MudCardMedia>
+                    <MudCardContent Class="align-center justify-center">
+                        <MudText Align="Align.Center" Typo="Typo.body1">
+                            EARN BADGES AND POINTS
+                        </MudText>
+                        <MudText Align="Align.Center" Typo="Typo.body2">
+                            Earn points alone or in a group. Compete with others and exchange points for badges. The most deserving will be awarded.
+                        </MudText>
+                    </MudCardContent>
+                </MudCard>
+                <MudCard Elevation="0">
+                    <MudCardMedia Image="Images/Index/modular.png" Class="align-center justify-center">
+                    </MudCardMedia>
+                    <MudCardContent Class="align-center justify-center">
+                        <MudText Align="Align.Center" Typo="Typo.body1">
+                            MODULAR EVENTS
+                        </MudText>
+                        <MudText Align="Align.Center" Typo="Typo.body2">
+                            Simple extension of events with additional functionalities in the form of modules.
+                        </MudText>
+                    </MudCardContent>
+                </MudCard>
+                <MudCard Elevation="0">
+                    <MudCardMedia Image="Images/Index/organization.png" Class="align-center justify-center">
+                    </MudCardMedia>
+                    <MudCardContent Class="align-center justify-center">
+                        <MudText Align="Align.Center" Typo="Typo.body1">
+                            COOPERATION WITH THE LARGEST COMPANIES
+                        </MudText>
+                        <MudText Align="Align.Center" Typo="Typo.body2">
+                            Our application creates opportunities for simple cooperation between individuals and companies.
+                        </MudText>
+                    </MudCardContent>
+                </MudCard>
+            </MudStack>
+        </MudItem>
+        <MudItem xs="12" Class="d-block align-center justify-center py-8">
+            <MudText Align="Align.Center" Typo="Typo.body1">
+                MEET OUR MOST ACTIVE VOLUNTEERS
+            </MudText>
+            <MudGrid Justify="Justify.Center">
+                <MudItem xs="4" Class="align-center justify-center py-8">
+                    <TopPrivateAccountsListComponent IsClickable=false IsDisabled=true ListTitle="Top 10 Private Accounts" />
+                </MudItem>
+                <MudItem xs="4" Class="align-center justify-center py-8">
+                    <TopCompanyAccountsListComponent IsClickable=false IsDisabled=true ListTitle="Top 10 Company Accounts" />
+                </MudItem>
+                <MudItem xs="4" Class="align-center justify-center py-8">
+                    <TopGroupsListComponent IsClickable=false IsDisabled=true ListTitle="Top 10 Groups" />
+                </MudItem>
+            </MudGrid>
+            <MudItem xs="12" Class="d-block align-center justify-center py-8">
+                <MudText Align="Align.Center" Typo="Typo.body1">
+                    WE PRESENT THE RANKING OF ORGANIZERS OF THE LARGEST NUMBER OF EVENTS
+                </MudText>
+                <TopAccountsWithMostEventListComponent IsClickable=false IsDisabled=true ListTitle="Top 10 Accounts" />
+            </MudItem>
+        </MudItem>
+        <MudItem xs="12" Class="d-block align-center justify-center py-8">
+            <MudItem xs="12" Class="d-flex align-center justify-center">
+                <MudText Align="Align.Center" Typo="Typo.body1">
+                    JOIN OUR CUSTOMERS AND START HELPING YOUR COMMUNITY NOW
+                </MudText>
+            </MudItem>
+            <MudItem xs="12" Class="d-flex align-center justify-center">
+                <MudButton Variant="Variant.Filled"
+                           Color="Color.Primary"
+                           Size="Size.Large"
+                           OnClick="@(() => NavigationManager.NavigateTo("/accountplan/selection"))">
+                    Join
+                </MudButton>
+            </MudItem>
+        </MudItem>
+        <MudItem xs="12" Class="align-center justify-center py-8">
+            <ContactFormComponent />
+        </MudItem>
+    </MudGrid>
+    <MudScrollToTop>
+        <MudFab Color="Color.Primary" Icon="@Icons.Filled.ArrowCircleUp" />
+    </MudScrollToTop>
+</MudContainer>

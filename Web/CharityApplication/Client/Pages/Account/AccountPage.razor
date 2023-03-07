@@ -1,0 +1,163 @@
+﻿@page "/account/{IdAccount:int}"
+@attribute [Authorize]
+<MudContainer Fixed=true>
+    @if (Account.IdAccount > 0)
+    {
+        <MudGrid Justify="Justify.Center">
+            @if (Account.PrivateAccount is not null)
+            {
+                <MudItem xs="12">
+                    <MudCard>
+                        <MudCardHeader>
+                            <CardHeaderAvatar>
+                                <MudAvatar>
+                                    <MudAvatar Image="@Account.Base64dataPicture"
+                                       Color="Color.Secondary">
+                                        @Account.AccountCredentials
+                                    </MudAvatar>
+                                </MudAvatar>
+                            </CardHeaderAvatar>
+                            <CardHeaderContent>
+                                <MudText Align="Align.Left">@($"{Account.PrivateAccount.FirstName} {Account.PrivateAccount.LastName}")</MudText>
+                                </CardHeaderContent>
+                                <CardHeaderActions>
+                                @if (Account.IdAccount == LoggedUser.IdAccount)
+                                {
+                                    <MudMenu Icon="@Icons.Material.Filled.Settings" Color="Color.Primary" Label="Options">
+                                        <MudMenuItem OnClick="DeleteAccount">Delete</MudMenuItem>
+                                        <MudMenuItem OnClick="@(() => NavigationManager.NavigateTo($"/account/edit/{Account.IdAccount}"))">Edit</MudMenuItem>
+                                        <MudMenuItem OnClick="@(() => NavigationManager.NavigateTo($"/account/edit/{Account.IdAccount}"))">Verify Account</MudMenuItem>
+                                    </MudMenu>
+                                }
+                            </CardHeaderActions>
+                        </MudCardHeader>
+                        <MudCardContent>
+                            <MudField Label="Account Type" Variant="Variant.Text">Private Account</MudField>
+                            <MudField Label="Mail" Variant="Variant.Text">@Account.Email</MudField>
+                            <MudField Label="Birth Date" Variant="Variant.Text">@Account.PrivateAccount.BirthDate.Value.ToLongDateString()</MudField>
+                            <MudField Label="Phone Number" Variant="Variant.Text">@Account.Phone</MudField>
+                            <MudField Label="Private Account Verification Status" Variant="Variant.Text">
+                                @(Account.VerificationStatus ? "Verified" : "Non Verified")
+                            </MudField>
+                            <MudField Label="Points" Variant="Variant.Text">@Account.Points</MudField>
+                        </MudCardContent>
+                    </MudCard>
+                </MudItem>
+                @if (Account.GoldSponsorBadge)
+                {
+                    <MudItem xs="12">
+                        <MudPaper Elevation="0" Class="d-flex align-center justify-center">
+                            <MudAvatar Image="Images/Index/goldbadge.png" Color="Color.Secondary" />
+                            <MudField Variant="Variant.Outlined">Badge awarded for supporting the donation 5 times the event</MudField>
+                        </MudPaper>
+                    </MudItem>
+                }
+            }
+            else if (Account.CompanyAccount is not null)
+            {
+                <MudItem xs="12">
+                    <MudCard>
+                        <MudCardHeader>
+                            <CardHeaderAvatar>
+                                <MudAvatar>
+                                    <MudAvatar Image="@Account.Base64dataPicture"
+                                       Color="Color.Secondary">
+                                        @Account.AccountCredentials
+                                    </MudAvatar>
+                                </MudAvatar>
+                            </CardHeaderAvatar>
+                            <CardHeaderContent>
+                                <MudText Align="Align.Left">@Account.CompanyAccount.Name</MudText>
+                            </CardHeaderContent>
+                            <CardHeaderActions>
+                                @if (Account.IdAccount == LoggedUser.IdAccount)
+                                {
+                                    <MudMenu Icon="@Icons.Material.Filled.Settings" Color="Color.Primary" Label="Options">
+                                        <MudMenuItem OnClick="DeleteAccount">Delete</MudMenuItem>
+                                        <MudMenuItem OnClick="@(() => NavigationManager.NavigateTo($"/account/edit/{Account.IdAccount}"))">Edit</MudMenuItem>
+                                        <MudMenuItem OnClick="@(() => NavigationManager.NavigateTo($"/account/edit/{Account.IdAccount}"))">Verify Account</MudMenuItem>
+                                    </MudMenu>
+                                }
+                            </CardHeaderActions>
+                        </MudCardHeader>
+                        <MudCardContent>
+                            <MudField Label="Account Type" Variant="Variant.Text">Comapny Account</MudField>
+                            <MudField Label="Mail" Variant="Variant.Text">@Account.Email</MudField>
+                            <MudField Label="Phone Number" Variant="Variant.Text">@Account.Phone</MudField>
+                            @if (!string.IsNullOrEmpty(Account.CompanyAccount.Krs))
+                            {
+                                <MudField Label="Company Krs" Variant="Variant.Text">@Account.CompanyAccount.Krs</MudField>
+                            }
+                            @if (!string.IsNullOrEmpty(Account.CompanyAccount.Nip))
+                            {
+                                <MudField Label="Company Nip" Variant="Variant.Text">@Account.CompanyAccount.Nip</MudField>
+                            }
+                            @if (!string.IsNullOrEmpty(Account.CompanyAccount.CompanyWebsiteLink))
+                            {
+                                <MudField Label="Company Website Link" Variant="Variant.Text">@Account.CompanyAccount.CompanyWebsiteLink</MudField>
+                            }
+                            @if (!string.IsNullOrEmpty(Account.CompanyAccount.BankAccount))
+                            {
+                                <MudField Label="Company Bank Account Number" Variant="Variant.Text">@Account.CompanyAccount.BankAccount</MudField>
+                            }
+                            <MudField Label="Private Account Verification Status" Variant="Variant.Text">@(Account.VerificationStatus ? "Verified" : "Non Verified")</MudField>
+                                <MudField Label="Points" Variant="Variant.Text">@Account.Points</MudField>
+                            </MudCardContent>
+                        </MudCard>
+                    </MudItem>
+                @if (Account.GoldSponsorBadge)
+                {
+                    <MudItem xs="12">
+                        <MudPaper Elevation="0" Class="d-flex align-center justify-center">
+                            <MudAvatar Image="Images/Index/goldbadge.png" Color="Color.Secondary" />
+                            <MudField Variant="Variant.Outlined">Badge awarded for supporting the donation 5 times the event</MudField>
+                        </MudPaper>
+                    </MudItem>
+                }
+                <MudItem xs="6">
+                    <MudCard>
+                        <MudCardHeader>
+                            <MudText Typo="Typo.body1" Align="Align.Left">Company Address</MudText>
+                        </MudCardHeader>
+                        <MudCardContent>
+                            <MudField Label="Street" Variant="Variant.Text">@Account.CompanyAccount.CompanyAddress.Street</MudField>
+                            <MudField Label="Building Number" Variant="Variant.Text">@Account.CompanyAccount.CompanyAddress.BuildingNumber</MudField>
+                            <MudField Label="Apartment Number" Variant="Variant.Text">@Account.CompanyAccount.CompanyAddress.ApartmentNumber</MudField>
+                            <MudField Label="Zip Code" Variant="Variant.Text">@Account.CompanyAccount.CompanyAddress.ZipCode</MudField>
+                            <MudField Label="City" Variant="Variant.Text">@Account.CompanyAccount.CompanyAddress.Province</MudField>
+                            <MudField Label="Province" Variant="Variant.Text">@Account.CompanyAccount.CompanyAddress.Country</MudField>
+                        </MudCardContent>
+                    </MudCard>
+                </MudItem>
+                <MudItem xs="6">
+                    <MudCard>
+                        <MudCardHeader>
+                            <MudText Typo="Typo.body1" Align="Align.Left">Company Representative</MudText>
+                        </MudCardHeader>
+                        <MudCardContent>
+                            <MudField Label="First Name Last Name" Variant="Variant.Text">@($"{Account.CompanyAccount.CompanyRepresentative.FirstName} {Account.CompanyAccount.CompanyRepresentative.LastName}")</MudField>
+                                <MudField Label="Representative Mail" Variant="Variant.Text">@Account.CompanyAccount.CompanyRepresentative.RepresentativeMail</MudField>
+                                <MudField Label="Representative Phone" Variant="Variant.Text">@Account.CompanyAccount.CompanyRepresentative.RepresentativePhone</MudField>
+                            </MudCardContent>
+                        </MudCard>
+                    </MudItem>
+
+            }
+            <MudItem xs="12">
+                <BadgesByAccountListComponent ListTitle="Badges" IsClickable=false IsDisabled=true LoggedUser="Account" />
+            </MudItem>
+            <MudItem xs="12" Class="d-block align-center justify-center py-8">
+                <EventsByAccountIdListComponent AccountId="@Account.IdAccount" IfPast=false IsDisabled=false IsClickable=true ListTitle="Ongoing Events" />
+            </MudItem>
+            <MudItem xs="6" Class="d-block align-center justify-center py-8">
+                <EventsByAccountIdListComponent AccountId="@Account.IdAccount" IfPast=true IsDisabled=false IsClickable=true ListTitle="Past Events" />
+            </MudItem>
+            <MudItem xs="6" Class="d-block align-center justify-center py-8">
+                <GroupsByAccountIdListComponent AccountId="@Account.IdAccount" IsDisabled=false IsClickable=true ListTitle="Groups" />
+            </MudItem>
+        </MudGrid>
+    }
+    <MudScrollToTop>
+        <MudFab Color="Color.Primary" Icon="@Icons.Filled.ArrowCircleUp" />
+    </MudScrollToTop>
+</MudContainer>

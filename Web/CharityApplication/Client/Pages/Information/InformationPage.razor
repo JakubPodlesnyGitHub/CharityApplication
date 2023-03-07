@@ -1,0 +1,49 @@
+﻿@page "/charityapplication/faq"
+<MudContainer Fixed=true>
+    <MudGrid Justify="Justify.Center">
+        <MudItem xs="12" Class="mt-6">
+            <MudText Align="Align.Left" Typo="Typo.h4"><b>Frequently Asked Questions (FAQ)</b></MudText>
+        </MudItem>
+        <MudText Typo="Typo.body1"></MudText>
+        <MudItem xs="12">
+            <MudExpansionPanels DisableBorders=true MultiExpansion=true>
+                <MudExpansionPanel Class="mt-6" Text="How to create an event ?">
+                    <MudText Typo="Typo.body1" >Event Creation is allowed for registered users who have been verified. To create an event, go to the list of events and click the "Create Event" button. Then, complete the form and attach the modules of your choice.</MudText>
+                </MudExpansionPanel>
+                <MudExpansionPanel Class="mt-6" Text="What modules are available ?">
+                    <MudText Typo="Typo.body1">To see the available modules, go to the Modules tab in the navigation bar.</MudText>
+                </MudExpansionPanel>
+                <MudExpansionPanel Class="mt-6"  Text="What badges are available ?">
+                    <MudText Typo="Typo.body1">Below is a list of available badges.</MudText>
+                    <BadgesListComponent IsClickable=false IsDisabled=true ListTitle="Badges" />
+                </MudExpansionPanel>
+                <MudExpansionPanel Class="mt-6" Text="How the verification is done?">
+                    <MudText Typo="Typo.body1">Verification is carried out by our company internally and is dependent on the data provided and the relevant documents provided during the verification process by the user. In addition to verification by the system, each user is checked manually by our employees.</MudText>
+                </MudExpansionPanel>
+                <MudExpansionPanel Class="mt-6" Text="What types of documents are to be provided during verification ?">
+                    <MudText Typo="Typo.body1">Currently we support two types of documents: passport or ID card. In the future, we plan to expand the scope of verification services.</MudText>
+                </MudExpansionPanel>
+                <MudExpansionPanel Class="mt-6" Text="How points are calculated for which badges are awarded ?">
+                    <MudText Typo="Typo.body1">For each confirmed participation in the event, the user receives a standard number of points. Each badge has a point threshold for a single user and increased by 10 percent for a group. Once you have earned enough points, the badge will automatically be added to your account.</MudText>
+                </MudExpansionPanel>
+                <MudExpansionPanel Class="mt-6" Text="Is there a messenger available to contact other users ?">
+                    <MudText Typo="Typo.body1">Each user of our application receives access to the communicator thanks to which he can contact <b>currently available</b> users</MudText>
+                </MudExpansionPanel>
+                <MudExpansionPanel Class="mt-6" Text="What if i see on my page fraze - 'There are no provided data'">
+                    <MudText Typo="Typo.body1">
+                        This means that there is currently no data available for you or you do not belong to any group or event.
+                    </MudText>
+                </MudExpansionPanel>
+                <MudExpansionPanel Class="mt-6" Text="How can you contact with us?">
+                    <MudText Typo="Typo.body1">We invite you to use the form available on the home page. If you wish, we also reply to the e-mail <MudIcon Icon="@Icons.Custom.Brands.Gmail" /> <b><MudLink OnClick="CopyToClipboard">@Mail</MudLink></b></MudText>
+                </MudExpansionPanel>
+            </MudExpansionPanels>
+        </MudItem>
+        <MudItem xs="12">
+            <MudNavLink  Icon="@Icons.Custom.Brands.MicrosoftAzure" Href="#" IconColor="Color.Primary">Click here to go to the repository</MudNavLink>
+        </MudItem>
+    </MudGrid>
+    <MudScrollToTop>
+        <MudFab Color="Color.Primary" Icon="@Icons.Filled.ArrowCircleUp" />
+    </MudScrollToTop>
+</MudContainer>

@@ -1,0 +1,28 @@
+﻿<CascadingAuthenticationState>
+    <Router AppAssembly="@typeof(App).Assembly">
+        <Found Context="routeData">
+            <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+                <NotAuthorized>
+                    @if (context.User.Identity?.IsAuthenticated != true)
+                    {
+                        NavigationManager.NavigateTo("/login");
+                        SnackBar.Add("You need to login to have access to that page.", Severity.Error);
+                    }
+                    else
+                    {
+                        <MudAlert Severity="Severity.Warning" Variant="Variant.Outlined" Elevation="2">You are not authorized to access this resource.</MudAlert>
+                    }
+                </NotAuthorized>
+            </AuthorizeRouteView>
+            <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+        </Found>
+        <NotFound>
+            <PageTitle>Not found</PageTitle>
+            <LayoutView Layout="@typeof(MainLayout)">
+                <div class="align-center justify-content-center">
+                    <MudAlert Severity="Severity.Error" Variant="Variant.Filled" Elevation="2">Sorry, there's nothing at this address.</MudAlert>
+                </div>
+            </LayoutView>
+        </NotFound>
+    </Router>
+</CascadingAuthenticationState>

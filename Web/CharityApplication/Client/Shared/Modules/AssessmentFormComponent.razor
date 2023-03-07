@@ -1,0 +1,43 @@
+﻿<MudForm Model="@Model" @ref="@Form" Validation="@(Validator.ValidateValue)" ValidationDelay="0">
+    <MudGrid Justify="Justify.Center">
+        <MudItem xs="12">
+            <MudCard>
+                <MudCardHeader>
+                    <MudText Typo="Typo.body1">@FormTitle</MudText>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudTextField Variant="Variant.Text"
+                                  Label="Mail"
+                                  InputType="InputType.Text"
+                                  @bind-Value="Model.Mail"
+                                  For="@(() => Model.Mail)" />
+                    <div class="d-flex flex-column align-left">
+                        <MudText Typo="Typo.subtitle1">Event Rate</MudText>
+                        <MudRating @bind-SelectedValue="Model.EventRate" MaxValue="10" Size="Size.Medium" Name="Event Rate" />
+                    </div>
+                    <MudTextField Variant="Variant.Text"
+                                  Label="Subject"
+                                  InputType="InputType.Text"
+                                  @bind-Value="Model.Subject"
+                                  For="@(() => Model.Subject)"
+                                  Lines="2" />
+                    <div class="d-flex flex-column align-left">
+                        <MudText Typo="Typo.subtitle1">App Rate</MudText>
+                        <MudRating @bind-SelectedValue="Model.AppRate" MaxValue="10" Size="Size.Medium" Name="App Rate" />
+                    </div>
+                    <MudTextField Variant="Variant.Text"
+                                  Label="Message"
+                                  InputType="InputType.Text"
+                                  @bind-Value="Model.Message"
+                                  For="@(() => Model.Message)"
+                                  Lines="8" />
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton Variant="Variant.Text"
+                               Color="Color.Primary"
+                               OnClick="Submit">@ButtonTitle</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
+</MudForm> 

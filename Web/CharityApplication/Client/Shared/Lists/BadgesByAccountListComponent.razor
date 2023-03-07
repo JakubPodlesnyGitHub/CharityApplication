@@ -1,0 +1,31 @@
+﻿<MudList Clickable=@IsClickable Disabled=@IsDisabled>
+    <MudListSubheader>
+        <MudText Align="Align.Left" Typo="Typo.body1">@ListTitle</MudText>
+    </MudListSubheader>
+    @if (AccountBadges.Any())
+    {
+        @foreach (var badgeAccount in AccountBadges)
+        {
+            <MudListItem Disabled=@IsDisabled>
+                <MudCard>
+                    <MudCardHeader>
+                        <CardHeaderAvatar>
+                            <MudAvatar Image="@badgeAccount.Badge.Base64dataPicture"
+                               Color="Color.Secondary">
+                                @(badgeAccount.Badge.Name[..1])
+                            </MudAvatar>
+                        </CardHeaderAvatar>
+                        <CardHeaderContent>
+                            <MudText>@badgeAccount.Badge.Name</MudText>
+                            <MudText>@badgeAccount.Badge.BadgeGoal</MudText>
+                        </CardHeaderContent>
+                    </MudCardHeader>
+                </MudCard>
+            </MudListItem>
+        }
+    }
+    else
+    {
+        <MudChip Color="Color.Error" Icon="@Icons.Material.Filled.Error" Text="Currently you don't have any badges" />
+    }
+</MudList>

@@ -1,0 +1,70 @@
+﻿@page "/privateaccount/registration"
+<MudContainer Fixed=true>
+    <MudForm Model="@Model" @ref="@Form" Validation="@(Validator.ValidateValue)" ValidationDelay="0">
+        <MudGrid Justify="Justify.Center">
+            <MudItem xs="12">
+                <MudCard>
+                    <MudCardHeader>
+                        <MudText Typo="Typo.h5" Align="Align.Left">Private Account Registration</MudText>
+                    </MudCardHeader>
+                    <MudCardContent>
+                        <MudTextField Label="First Name"
+                                      Variant="Variant.Text"
+                                      @bind-Value="Model.FirstName"
+                                      InputType="InputType.Text"
+                                      For="@(() => Model.FirstName)" />
+                        <MudTextField Label="Last Name" Variant="Variant.Text"
+                                      @bind-Value="Model.LastName"
+                                      InputType="InputType.Text"
+                                      For="@(() => Model.LastName)" />
+                        <MudDatePicker Label="Birth Date"
+                                       PickerVariant="PickerVariant.Dialog"
+                                       Orientation="Orientation.Portrait"
+                                       @bind-Date="Model.BirthDate"
+                                       For="@(() => Model.BirthDate)" />
+                        <MudTextField Label="Phone Number"
+                                      Variant="Variant.Text"
+                                      @bind-Value="Model.Phone"
+                                      InputType="InputType.Telephone"
+                                      For="@(() => Model.Phone)" />
+                        <MudTextField Mask="@EmailMask"
+                                      Label="Email"
+                                      Variant="Variant.Text"
+                                      @bind-Value="Model.Email"
+                                      InputType="InputType.Text"
+                                      For="@(() => Model.Email)" />
+                        <MudTextField Label="Password"
+                                      Immediate=true
+                                      Variant="Variant.Text"
+                                      @bind-Value="Model.Password"
+                                      InputType="@PasswordInput"
+                                      Adornment="Adornment.End"
+                                      AdornmentIcon="@PasswordInputIcon"
+                                      OnAdornmentClick="DisplayPassoword"
+                                      AdornmentAriaLabel="Show Password"
+                                      For="@(() => Model.Password)" />
+                        <MudTextField Label="Repeated Password"
+                                      Immediate=true
+                                      Variant="Variant.Text"
+                                      @bind-Value="Model.RepeatedPassword"
+                                      InputType="@ReapetedPasswordInput"
+                                      Adornment="Adornment.End"
+                                      AdornmentIcon="@ReapetedPasswordIcon"
+                                      OnAdornmentClick="DisplayReapetedPassword"
+                                      AdornmentAriaLabel="Show Password"
+                                      For="@(() => Model.RepeatedPassword)" />
+
+                    </MudCardContent>
+                    <MudCardActions>
+                        <MudButton Variant="Variant.Filled"
+                                   Color="Color.Primary"
+                                   OnClick="Submit">Register</MudButton>
+                    </MudCardActions>
+                </MudCard>
+            </MudItem>
+        </MudGrid>
+    </MudForm>
+    <MudScrollToTop>
+        <MudFab Color="Color.Primary" Icon="@Icons.Filled.ArrowCircleUp" />
+    </MudScrollToTop>
+</MudContainer>

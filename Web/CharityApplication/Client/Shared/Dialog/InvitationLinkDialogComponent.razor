@@ -1,0 +1,23 @@
+﻿<MudDialog Class="mud-width-full">
+    <DialogContent>
+        <MudCard Elevation="0">
+            <MudCardHeader>
+                <CardHeaderContent>
+                    <MudText Align="Align.Left" Typo="Typo.body1">Select to unlock</MudText>
+                </CardHeaderContent>
+                <CardHeaderActions>
+                    <MudSwitch T="bool" CheckedChanged="Switch" Color="Color.Success"></MudSwitch>
+                </CardHeaderActions>
+            </MudCardHeader>
+            <MudTextField Disabled="@IsDisabled" @bind-Value="Link" Label="Read Only" ReadOnly="true" Variant="Variant.Outlined"></MudTextField>
+            <MudCardContent>
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton Disabled="@IsDisabled" Variant="Variant.Text" OnClick="CopyToClipboard" Size="Size.Large">Copy</MudButton>
+            </MudCardActions>
+        </MudCard>
+    </DialogContent>
+    <DialogActions>
+        <MudButton Color="Color.Primary" Variant="Variant.Text" OnClick="Close">Close</MudButton>
+    </DialogActions>
+</MudDialog>

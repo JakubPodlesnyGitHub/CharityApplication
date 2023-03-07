@@ -1,0 +1,18 @@
+﻿<MudCard>
+    <MudCardHeader>
+        <CardHeaderAvatar>
+            <MudAvatar Variant="Variant.Filled" Color="Color.Secondary">
+                <MudIcon Icon="@Icons.Material.Filled.AttachMoney" />
+            </MudAvatar>
+</CardHeaderAvatar>
+        <CardHeaderContent>
+            <MudText Align="Align.Left">Foundraizer Data</MudText>
+        </CardHeaderContent>
+    </MudCardHeader>
+    <MudCardContent>
+        <MudField Variant="Variant.Outlined" Label="Receiver Name" AdornmentIcon="@Icons.Filled.ContentCopy" @bind-Value="MudTextString" OnAdornmentClick="CopyToClipboard">@FoundraizerWrapper.ReceiverName</MudField>
+        <MudField Variant="Variant.Outlined" Label="Receiver Address" AdornmentIcon="@Icons.Filled.ContentCopy" @bind-Value="MudTextString" OnAdornmentClick="CopyToClipboard">@FoundraizerWrapper.ReceiverAddress</MudField>
+        <MudField Variant="Variant.Outlined" Label="Transfer Subject" AdornmentIcon="@Icons.Filled.ContentCopy" @bind-Value="MudTextString" OnAdornmentClick="CopyToClipboard">@FoundraizerWrapper.TransferSubject</MudField>
+        <MudField Variant="Variant.Outlined" Label="Receiver Bank Account" AdornmentIcon="@Icons.Filled.ContentCopy" @bind-Value="MudTextString" OnAdornmentClick="CopyToClipboard">@FoundraizerWrapper.ReceiverBankAccountNumber</MudField>
+    </MudCardContent>
+</MudCard>

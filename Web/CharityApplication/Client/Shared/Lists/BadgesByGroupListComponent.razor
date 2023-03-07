@@ -1,0 +1,31 @@
+﻿<MudList Clickable=@IsClickable Disabled=@IsDisabled>
+    <MudListSubheader>
+        <MudText Align="Align.Left" Typo="Typo.body1">@ListTitle</MudText>
+    </MudListSubheader>
+    @if (GroupBadges.Any())
+    {
+        @foreach (var groupBadge in GroupBadges)
+        {
+            <MudListItem Disabled=@IsDisabled>
+                <MudCard>
+                    <MudCardHeader>
+                        <CardHeaderAvatar>
+                            <MudAvatar Image="@groupBadge.Badge.Base64dataPicture"
+                               Color="Color.Secondary">
+                                @(groupBadge.Badge.Name[..1])
+                            </MudAvatar>
+                        </CardHeaderAvatar>
+                        <CardHeaderContent>
+                            <MudText>@groupBadge.Badge.Name</MudText>
+                            <MudText>@groupBadge.Badge.BadgeGoal</MudText>
+                        </CardHeaderContent>
+                    </MudCardHeader>
+                </MudCard>
+            </MudListItem>
+        }
+    }
+    else
+    {
+        <MudChip Color="Color.Error" Icon="@Icons.Material.Filled.Error" Text="Currently group doesn't' have any badges" />
+    }
+</MudList>

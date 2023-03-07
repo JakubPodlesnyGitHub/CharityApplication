@@ -1,0 +1,95 @@
+﻿@page "/groups"
+@using Application.Dtos.BasicDtos.Responses;
+
+<MudContainer>
+    <MudTable T="BasicGroupDTO" Items="@PublicGroups" Hover="true" Loading="@LoadingBar" LoadingProgressColor=Color.Success Dense="@DenseItems" SortBy="Sort By" Filter="new Func<BasicGroupDTO, bool>(FilterFuncShort)" @bind-SelectedItem="SelectedElement" OnRowClick="NavigateToSpecificGroup">
+        <ToolBarContent>
+            <MudText Typo="Typo.h6">Groups</MudText>
+            <MudSpacer />
+            <MudTextField @bind-Value="SearchValue"
+                          Placeholder="Search"
+                          Adornment="Adornment.Start"
+                          AdornmentIcon="@Icons.Material.Filled.Search"
+                          IconSize="Size.Medium"
+                          Class="mt-0"></MudTextField>
+        </ToolBarContent>
+        <HeaderContent>
+            <MudTh>
+                Group Profile Picture
+            </MudTh>
+            <MudTh>
+                <MudTableSortLabel SortBy="new Func<BasicGroupDTO, object>(x =>x.GroupName.Name)">
+                    Name
+                </MudTableSortLabel>
+            </MudTh>
+            <MudTh>
+                <MudTableSortLabel SortBy="new Func<BasicGroupDTO, object>(x =>x.NumberOfParticipants)">
+                    Number Of Participants
+                </MudTableSortLabel>
+            </MudTh>
+            <MudTh>
+                <MudTableSortLabel SortBy="new Func<BasicGroupDTO, object>(x =>x.Description)">
+                    Description
+                </MudTableSortLabel>
+            </MudTh>
+            <MudTh>
+                <MudTableSortLabel SortBy="new Func<BasicGroupDTO, object>(x =>x.GroupType)">
+                    GroupType
+                </MudTableSortLabel>
+            </MudTh>
+            <AuthorizeView>
+                <Authorized>
+                    <MudTh>
+
+                    </MudTh>
+                </Authorized>
+            </AuthorizeView>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Group Profile Picture"><MudAvatar Color=Color.Secondary Image="@context.Base64dataPicture">@context.GroupName.Name[..1] </MudAvatar></MudTd>
+            <MudTd DataLabel="Name">@context.GroupName.Name</MudTd>
+            <MudTd DataLabel="Number Of Participants">@context.NumberOfParticipants</MudTd>
+            <MudTd DataLabel="Description">@context.Description</MudTd>
+            <MudTd DataLabel="Group Type">@(context.GroupType ? "Private" : "Visible")</MudTd>
+                <AuthorizeView Context="authContext">
+                    <Authorized>
+                        <MudTd>
+                            <MudMenu Variant="Variant.Filled" Icon="@Icons.Material.Outlined.Edit" IconColor="Color.Primary">
+                                @if (!LoggedUserGroups.Contains(context))
+                            {
+                                <MudMenuItem OnClick="@(() => JoinToGroup(context))">Join</MudMenuItem>
+                            }
+                            else
+                            {
+                                <MudMenuItem OnClick="@(() => LeaveTheGroup(context))">Leave</MudMenuItem>
+                            }
+                            </MudMenu>
+                        </MudTd>
+                    </Authorized>
+                </AuthorizeView>
+            </RowTemplate>
+            <PagerContent>
+                <MudTablePager />
+            </PagerContent>
+            <NoRecordsContent>
+                <MudText Color="Color.Error">
+                    There is no groups
+                </MudText>
+            </NoRecordsContent>
+        </MudTable>
+        <div class="d-flex flex-wrap mt-4">
+            <MudSwitch @bind-Checked="@DenseItems"
+                   Color="Color.Primary">Dense</MudSwitch>
+            <MudSpacer />
+        <AuthorizeView Roles="PrivateUser">
+                <Authorized>
+                    <MudButton Variant="Variant.Filled"
+                           Color="Color.Primary"
+                           OnClick="@(() => NavigationManager.NavigateTo("/group/create"))">Create Group</MudButton>
+                </Authorized>
+            </AuthorizeView>
+        </div>
+        <MudScrollToTop>
+            <MudFab Color="Color.Primary" Icon="@Icons.Filled.ArrowCircleUp" />
+        </MudScrollToTop>
+    </MudContainer>

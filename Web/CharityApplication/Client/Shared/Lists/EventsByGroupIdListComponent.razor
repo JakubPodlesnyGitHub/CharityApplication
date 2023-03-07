@@ -1,0 +1,38 @@
+﻿
+<MudList Clickable=@IsDisabled Disabled=@IsDisabled>
+    <MudListSubheader>
+        <MudText Align="Align.Left" Typo="Typo.body1">@ListTitle</MudText>
+    </MudListSubheader>
+    @if (Events.Any())
+    {
+        @foreach (var chEvent in Events)
+        {
+            <MudListItem OnClick="@(() => NavigationManager.NavigateTo($"/event/{chEvent.IdEvent}"))" Disabled=@IsDisabled>
+                <MudCard>
+                    <MudCardHeader>
+                        <CardHeaderAvatar>
+                            <MudAvatar Image="@chEvent.Base64dataPicture"
+                               Color="Color.Secondary">
+                                @chEvent.EventName.Substring(0,1)
+                            </MudAvatar>
+                        </CardHeaderAvatar>
+                        <CardHeaderContent>
+                            <MudText>@chEvent.EventName</MudText>
+                        </CardHeaderContent>
+                    </MudCardHeader>
+                    @if (ShowEventGoal)
+                    {
+                        <MudCardContent>
+                            <MudText>@chEvent.EventGoal</MudText>
+                        </MudCardContent>
+                    }
+                </MudCard>
+            </MudListItem>
+        }
+    }
+    else
+    {
+        <MudChip Color="Color.Error" Icon="@Icons.Material.Filled.Error" Text="There are no provided data" />
+    }
+
+</MudList>

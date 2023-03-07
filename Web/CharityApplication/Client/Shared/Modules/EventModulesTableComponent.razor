@@ -1,0 +1,104 @@
+﻿@using Application.Dtos.BasicDtos.Responses;
+@using CharityApplication.Client.Shared.Modules;
+<MudTable T="BasicModuleDTO" Items="@Modules" Hover="true" Loading="@LoadingBar" LoadingProgressColor=Color.Success Dense="@DenseItems" SortBy="Sorty By" Filter="new Func<BasicModuleDTO, bool>(FilterFuncShort)" @bind-SelectedItem="SelectedElement" Breakpoint="Breakpoint.Sm">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">Modules</MudText>
+        <MudSpacer />
+        <MudTextField @bind-Value="SearchValue"
+                      Placeholder="Search"
+                      Adornment="Adornment.Start"
+                      AdornmentIcon="@Icons.Material.Filled.Search"
+                      IconSize="Size.Medium"
+                      Class="mt-0"></MudTextField>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh>
+            Module Picture
+        </MudTh>
+        <MudTh>
+            <MudTableSortLabel SortBy="new Func<BasicModuleDTO, object>(x =>x.ModuleName)">
+                Module Name
+            </MudTableSortLabel>
+        </MudTh>
+        <MudTh>
+            <MudTableSortLabel SortBy="new Func<BasicModuleDTO, object>(x =>x.ModuleDesc)">
+                Module Description
+            </MudTableSortLabel>
+        </MudTh>
+        <MudTh></MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Module Picture"><MudAvatar Color=Color.Secondary Image="@context.Base64dataPicture">@context.ModuleName[..1]</MudAvatar></MudTd>
+        <MudTd DataLabel="Module Name">@context.ModuleName</MudTd>
+        <MudTd DataLabel="Module Description">@context.ModuleDesc</MudTd>
+        <MudTd><MudSwitch T="bool" CheckedChanged="@(() => ShowBtnSwipe(context))" Color="Color.Success" /></MudTd>
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager />
+    </PagerContent>
+    <NoRecordsContent>
+        <MudText Color="Color.Error">
+            There is no data in database
+        </MudText>
+    </NoRecordsContent>
+    <ChildRowContent>
+        @if (context.ShowModuleProperties)
+        {
+            <MudTr>
+                <td colspan="4">
+                    <MudCard>
+                        <MudCardHeader>
+                            <CardHeaderContent>
+                                <MudText Typo="Typo.body1">Module Properties For <strong>@context.ModuleName</strong></MudText>
+                            </CardHeaderContent>
+                        </MudCardHeader>
+                        <MudCardContent>
+                            <MudTable Items="@context.Properties" Context="ModulePoropertyContext" Hover="true">
+                                <HeaderContent>
+                                    <MudTh>Property Type</MudTh>
+                                    <MudTh>Property Name</MudTh>
+                                    <MudTh>Property Value</MudTh>
+                                </HeaderContent>
+                                <RowTemplate>
+                                    <MudTd DataLabel="Property Data Type">@(GetPropertyType(ModulePoropertyContext.PropertyType))</MudTd>
+                                    <MudTd DataLabel="Property Name">@ModulePoropertyContext.Name</MudTd>
+                                    @if (IdEvent is null)
+                                    {
+                                        <MudTd DataLabel="Property Value">@ModulePoropertyContext.GetValue(context.ModuleWrapper)</MudTd>
+                                    }
+                                    else if (IdEvent is not null && FormState == FormState.CREATE)
+                                    {
+                                        <MudTd DataLabel="Property Value"><GenericFieldComponent PropertyName="@ModulePoropertyContext.Name" PropertyType="@ModulePoropertyContext.PropertyType" @bind-Property="ModulePoropertyContext" ModuleWrapper="@context.ModuleWrapper" /></MudTd>
+                                    }
+                                    else if (IdEvent is not null && FormState == FormState.EDIT)
+                                    {
+                                        <MudTd DataLabel="Property Value"><GenericFieldComponent PropertyName="@ModulePoropertyContext.Name" PropertyType="@ModulePoropertyContext.PropertyType" @bind-Property="ModulePoropertyContext" ModuleWrapper="@context.ModuleWrapper" /></MudTd>
+                                    }
+                                </RowTemplate>
+                                <NoRecordsContent>
+                                    <MudText Color="Color.Error">
+                                        There is no module properties
+                                    </MudText>
+                                </NoRecordsContent>
+                            </MudTable>
+                        </MudCardContent>
+                    </MudCard>
+                </td>
+            </MudTr>
+        }
+    </ChildRowContent>
+</MudTable>
+@if (Event is null)
+{
+    <div class="d-flex flex-wrap gap-4 mt-4">
+        <MudSwitch @bind-Checked="@DenseItems"
+               Color="Color.Primary">Dense</MudSwitch>
+        <MudSpacer />
+        <MudButton Variant="Variant.Filled"
+               Color="Color.Primary"
+               OnClick="@(AddModulesToDatabase)">@ButtonText</MudButton>
+        <MudButton Variant="Variant.Filled"
+               Color="Color.Primary"
+               OnClick="@(() => NavigationManager.NavigateTo($"/event/{IdEvent}"))">RETURN TO EVENT PAGE</MudButton>
+    </div>
+}

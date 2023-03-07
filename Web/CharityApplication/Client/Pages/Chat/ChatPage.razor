@@ -1,0 +1,121 @@
+﻿@page "/chat"
+@page "/chat/{IdReceiver:int}"
+@attribute [Authorize]
+<MudContainer Fixed=true>
+    <MudPaper Style="overflow:hidden; position:relative;">
+        <MudDrawerContainer Class="mud-height-full">
+            <MudDrawer @bind-Open="@IsOpen" Fixed="false" Elevation="1" Variant="@DrawerVariant.Mini" OpenMiniOnHover="true">
+                <MudNavMenu>
+                    <MudNavGroup Title="Concacts" Icon="@Icons.Material.Filled.Group" Expanded=false>
+                        <MudList Clickable=true>
+                            @foreach (var account in Accounts)
+                            {
+                                <MudListItem OnClick="@(() => LoadChat(account.IdAccount))">
+                                    <MudCard>
+                                        <MudCardHeader>
+                                            <CardHeaderAvatar>
+                                                <MudAvatar Image="@account.Base64dataPicture"
+                                                       Color="Color.Secondary">
+                                                    @(account.AccountCredentials)
+                                                </MudAvatar>
+                                            </CardHeaderAvatar>
+                                            <CardHeaderContent>
+                                                <MudText>@(account.PrivateAccount is not null ? $"{account.PrivateAccount.FirstName} {account.PrivateAccount.LastName}" : account.CompanyAccount.Name)</MudText>
+                                                </CardHeaderContent>
+                                            </MudCardHeader>
+                                        </MudCard>
+                                    </MudListItem>
+                            }
+                        </MudList>
+                    </MudNavGroup>
+                </MudNavMenu>
+            </MudDrawer>
+
+            <MudToolBar Dense=true>
+                @if (ReceiverAccount is null)
+                {
+                    <MudIcon Icon="@Icons.Material.Outlined.Person" />
+                    <MudText Typo="Typo.h6">Chat</MudText>
+                }
+                else
+                {
+                    <MudIcon Icon="@Icons.Material.Outlined.ChatBubble"></MudIcon>
+                    <MudText Typo="Typo.h6">
+                        @(ReceiverAccount.PrivateAccount is not null ?
+                            $"{ReceiverAccount.PrivateAccount.FirstName} {ReceiverAccount.PrivateAccount.LastName}" :
+                            ReceiverAccount.CompanyAccount.Name)
+                    </MudText>
+                }
+            </MudToolBar>
+
+            <div class="d-flex flex-column px-4" style="max-height:65vh;min-height:65vh; overflow:scroll;">
+                @foreach (var message in ChatMessages)
+                {
+                    @if (message.Sender is null && message.Recipient is null)
+                    {
+                        <MudCard Elevation="0">
+                            <MudCardHeader>
+                                <CardHeaderContent>
+                                    <MudField Variant="Variant.Outlined" Label="This is an automatic message">@message.MessageText</MudField>
+                                </CardHeaderContent>
+                            </MudCardHeader>
+                        </MudCard>
+                    }
+
+                    @if (message.IdSender == LoggedUser.IdAccount)
+                    {
+                        <div class="sent">
+                            <MudCard Elevation="0">
+                                <MudCardHeader Style="width:50%;">
+                                    <CardHeaderAvatar>
+                                        <MudAvatar Image="@message.Sender.Base64dataPicture"
+                                           Color="Color.Secondary">
+                                            @message.Sender.AccountCredentials
+                                        </MudAvatar>
+                                    </CardHeaderAvatar>
+                                    <CardHeaderContent>
+                                        <MudField Variant="Variant.Outlined" Label="@message.SendDate.Value.ToLongDateString()">@message.MessageText</MudField>
+                                    </CardHeaderContent>
+                                </MudCardHeader>
+                            </MudCard>
+                        </div>
+                    }
+                    else if (LoggedUser.IdAccount == message.IdRecipient)
+                    {
+                        <div class="received">
+                            <MudCard Elevation="0">
+                                <MudCardHeader Style="width:50%;">
+                                    <CardHeaderAvatar>
+                                        <MudAvatar Image="@message.Sender.Base64dataPicture"
+                                           Color="Color.Secondary">
+                                            @message.Sender.AccountCredentials
+                                        </MudAvatar>
+                                    </CardHeaderAvatar>
+                                    <CardHeaderContent>
+                                        <MudField Variant="Variant.Outlined" Label="@message.SendDate.Value.ToLongDateString()">@message.MessageText</MudField>
+                                    </CardHeaderContent>
+                                </MudCardHeader>
+                            </MudCard>
+                        </div>
+                    }
+                }
+            </div>
+
+            <MudTextField T="string"
+                          @bind-Value="Message"
+                          Label="Message"
+                          Lines="2"
+                          Placeholder="Write your message here..."
+                          Variant="Variant.Outlined"
+                          Adornment="Adornment.End"
+                          AdornmentIcon="@Icons.Material.Filled.Send"
+                          OnAdornmentClick="SendMessage"
+                          AdornmentColor="Color.Success"
+                          AdornmentAriaLabel="Send"
+                          IconSize="Size.Medium"
+                          InputType="InputType.Text"
+                          RequiredError="Message Is Required" />
+
+        </MudDrawerContainer>
+    </MudPaper>
+</MudContainer>

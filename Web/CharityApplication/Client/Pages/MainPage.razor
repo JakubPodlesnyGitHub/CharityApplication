@@ -1,0 +1,81 @@
+﻿@page "/mainpage"
+@attribute [Authorize]
+<MudContainer Fixed=true>
+    @if (LoggedUser is not null)
+    {
+        <MudGrid Justify="Justify.Center">
+            <MudItem xs="12">
+                <SearchBarComponent />
+            </MudItem>
+            <MudItem xs="12">
+                <MudCard>
+                    <MudCardHeader>
+                        <CardHeaderAvatar>
+                            <MudAvatar Image="@LoggedUser.Base64dataPicture"
+                                   Color="Color.Secondary">
+                                @(LoggedUser.AccountCredentials)
+                            </MudAvatar>
+                        </CardHeaderAvatar>
+                        <CardHeaderContent>
+                            <MudText Align="Align.Left">@(LoggedUser.PrivateAccount is not null ? $"{LoggedUser.PrivateAccount.FirstName} {LoggedUser.PrivateAccount.LastName}" : LoggedUser.CompanyAccount.Name)</MudText>
+                            </CardHeaderContent>
+                            <CardHeaderActions>
+                                <MudMenu Icon="@Icons.Material.Filled.Settings" Color="Color.Primary" Label="Options">
+                                    <MudNavGroup Title="Event">
+                                        <MudNavLink OnClick="@(() => NavigationManager.NavigateTo("/event/create"))">Create Event</MudNavLink>
+                                        <MudNavLink OnClick="@(() => NavigationManager.NavigateTo("/events"))">Join To Event</MudNavLink>
+                                    </MudNavGroup>
+                                    <MudNavGroup Title="Group">
+                                        <MudNavLink OnClick="@(() => NavigationManager.NavigateTo("/group/create"))">Create Group</MudNavLink>
+                                        <MudNavLink OnClick="@(() => NavigationManager.NavigateTo("/groups"))">Join To Group</MudNavLink>
+                                    </MudNavGroup>
+                                </MudMenu>
+                            </CardHeaderActions>
+                        </MudCardHeader>
+                        <MudCardContent>
+                            <MudField Label="Points" Variant="Variant.Text">@LoggedUser.Points</MudField>
+                            <MudField Label="Mail" Variant="Variant.Text">@LoggedUser.Email</MudField>
+                            <MudField Label="Verification Status" Variant="Variant.Text">@(LoggedUser.VerificationStatus ? "Verified" : "Non Verified")</MudField>
+                        </MudCardContent>
+                    </MudCard>
+                </MudItem>
+                <MudItem xs="12">
+                    <EventsByAccountIdListComponent AccountId="@LoggedUser.IdAccount" IsDisabled=false IfPast=false IsClickable=true ListTitle="Ongoing Events" />
+                </MudItem>
+                <MudItem xs="12" Class="d-block align-center justify-center py-8">
+                    <EventsByAccountIdListComponent AccountId="@LoggedUser.IdAccount" IsDisabled=false IfPast=true IsClickable=true ListTitle="Past Events" />
+                </MudItem>
+                <MudItem xs="12" Class="d-block align-center justify-center py-8">
+                    <GroupsByAccountIdListComponent AccountId="@LoggedUser.IdAccount" IsDisabled=false IsClickable=true ListTitle="Groups" />
+                </MudItem>
+                <MudItem xs="12" Class="d-block align-center justify-center py-8">
+                    <MudText Align="Align.Center" Typo="Typo.body1">
+                        MEET OUR MOST ACTIVE VOLUNTEERS
+                    </MudText>
+                    <MudGrid Justify="Justify.Center">
+                        <MudItem xs="4" Class="align-center justify-center py-8">
+                            <TopPrivateAccountsListComponent IsClickable=true IsDisabled=false ListTitle="Top 10 Private Accounts" />
+                        </MudItem>
+                        <MudItem xs="4" Class="align-center justify-center py-8">
+                            <TopCompanyAccountsListComponent IsClickable=true IsDisabled=false ListTitle="Top 10 Company Accounts" />
+                        </MudItem>
+                        <MudItem xs="4" Class="align-center justify-center py-8">
+                            <TopGroupsListComponent IsClickable=true IsDisabled=false ListTitle="Top 10 Groups" />
+                        </MudItem>
+                    </MudGrid>
+                    <MudItem xs="12" Class="d-block align-center justify-center py-8">
+                        <MudText Align="Align.Center" Typo="Typo.body1">
+                            WE PRESENT THE RANKING OF ORGANIZERS OF THE LARGEST NUMBER OF EVENTS
+                        </MudText>
+                        <TopAccountsWithMostEventListComponent IsClickable=false IsDisabled=true ListTitle="Top 10 Accounts" />
+                    </MudItem>
+                </MudItem>
+                <MudItem xs="12" Class="align-center justify-center py-8">
+                    <ContactFormComponent />
+                </MudItem>
+            </MudGrid>
+        <MudScrollToTop>
+            <MudFab Color="Color.Primary" Icon="@Icons.Filled.ArrowCircleUp" />
+        </MudScrollToTop>
+    }
+</MudContainer>

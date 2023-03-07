@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UserSecretsId>CharityApplication.Server-828e1a47-74c4-453d-ba81-c719d1f4376f</UserSecretsId>
+		<AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="AutoMapper" Version="10.1.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="6.0.12" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="6.0.10" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.10">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\Application\Application\Application.csproj" />
+		<ProjectReference Include="..\..\..\Domain\Domain\Domain.csproj" />
+		<ProjectReference Include="..\..\..\Infrastructure\Infrastructure\Infrastructure.csproj" />
+		<ProjectReference Include="..\Client\CharityApplication.Client.csproj" />
+		<ProjectReference Include="..\Shared\CharityApplication.Shared.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.10" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.10" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.10" />
+		<PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="6.0.10" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.10" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.10" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Watch Include="..\Client\**\*.razor" />
+	</ItemGroup>
+
+
+</Project>

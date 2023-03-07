@@ -1,0 +1,76 @@
+﻿@page "/group/{IdGroup:int}"
+@attribute [Authorize]
+<MudContainer Fixed=true>
+    @if (Group is not null && Group.GroupName is not null)
+    {
+        <MudGrid>
+            <MudItem xs="12">
+                <MudCard>
+                    <MudCardHeader>
+                        <CardHeaderAvatar>
+                            <MudAvatar>
+                                <MudAvatar Image="@Group.Base64dataPicture"
+                                       Color="Color.Secondary">
+                                    @Group.GroupName.Name.Substring(0, 1)
+                                </MudAvatar>
+                            </MudAvatar>
+                        </CardHeaderAvatar>
+                        <CardHeaderContent>
+                            <MudText Align="Align.Left">@Group.GroupName.Name</MudText>
+                        </CardHeaderContent>
+                        <CardHeaderActions>
+                            <AuthorizeView Roles="PrivateUser">
+                                <Authorized>
+                                    <MudMenu Icon="@Icons.Material.Filled.Settings" Color="Color.Primary" Label="Options">
+                                        @if (Group.IdGroupOwner == LoggedUser.IdAccount)
+                                        {
+                                            <MudMenuItem OnClick="DeleteGroup">Delete</MudMenuItem>
+                                            <MudMenuItem OnClick="@(() => NavigationManager.NavigateTo($"/group/edit/{IdGroup}"))">Edit</MudMenuItem>
+                                        }
+                                        <MudMenuItem OnClick="OpenDialogInvitationLink">Invite Through Link</MudMenuItem>
+                                        @if (GroupAccounts.Any())
+                                        {
+                                            <MudMenuItem OnClick="LeaveTheGroup">Leave The Group</MudMenuItem>
+                                        }
+                                        else
+                                        {
+                                            <MudMenuItem OnClick="JoinToGroup">Join To Group</MudMenuItem>
+                                        }
+                                    </MudMenu>
+                                </Authorized>
+                            </AuthorizeView>
+                        </CardHeaderActions>
+                    </MudCardHeader>
+                    <MudCardContent>
+                        <MudField Label="Administrator" Variant="Variant.Text">
+                            <MudLink OnClick="@(() => NavigationManager.NavigateTo($"/account/{Group.IdGroupOwner}"))" Underline="Underline.Hover">
+                                @($"{NavigationManager.BaseUri}account/{Group.IdGroupOwner}")
+                            </MudLink>
+                        </MudField>
+                        <MudField Label="Group Type" Variant="Variant.Text">@(Group.GroupType ? "Private" : "Visible")</MudField>
+                            <MudField Label="Member Number" Variant="Variant.Text">@Group.NumberOfParticipants</MudField>
+                            <MudField Label="Group Description" Variant="Variant.Text">@Group.Description</MudField>
+                        </MudCardContent>
+                    </MudCard>
+                </MudItem>
+                <MudItem xs="12">
+                    <BadgesByGroupListComponent Group="Group" IsClickable=false IsDisabled=false ListTitle="Badges" />
+                </MudItem>
+                <MudItem xs="12">
+                    <EventsByGroupIdListComponent GroupId="@IdGroup" ShowEventGoal=true IsClickable=true IfPast=false IsDisabled=false ListTitle="Ongoing Events" />
+                </MudItem>
+                <MudItem xs="6">
+                    <EventsByGroupIdListComponent GroupId="@IdGroup" ShowEventGoal=true IsClickable=true IfPast=false IsDisabled=false ListTitle="Past Events" />
+                </MudItem>
+                <MudItem xs="6">
+                    <AccountsByGroupIdListComponent GroupId="@IdGroup" IsClickable=true IsDisabled=false ListTitle="Members" />
+                </MudItem>
+                <MudItem xs="12">
+                    <GroupAnnouncementListComponent IsClickable=false IsDisabled=false ListTitle="Announcements" GroupId="IdGroup" />
+                </MudItem>
+            </MudGrid>
+        <MudScrollToTop>
+            <MudFab Color="Color.Primary" Icon="@Icons.Filled.ArrowCircleUp" />
+        </MudScrollToTop>
+    }
+</MudContainer>

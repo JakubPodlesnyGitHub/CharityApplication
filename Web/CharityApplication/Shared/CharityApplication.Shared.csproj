@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Remove="Dtos\BasicDtos\Requests\**" />
+		<EmbeddedResource Remove="Dtos\BasicDtos\Requests\**" />
+		<None Remove="Dtos\BasicDtos\Requests\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<SupportedPlatform Include="browser" />
+	</ItemGroup>
+</Project>

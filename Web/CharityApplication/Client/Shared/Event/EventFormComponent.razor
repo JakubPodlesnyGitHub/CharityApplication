@@ -1,0 +1,70 @@
+﻿@using Application.Dtos.BasicDtos.Responses;
+<MudForm Model="@Model" @ref="@Form" Validation="@(Validator.ValidateValue)" ValidationDelay="0">
+    <MudGrid Justify="Justify.Center">
+        <MudItem xs="12">
+            <MudCard>
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Align="Align.Left" Typo="Typo.body1">@FormTitle</MudText>
+                    </CardHeaderContent>
+                    <CardHeaderActions>
+                        <MudIconButton Color="Color.Primary" Icon="@Icons.Material.Outlined.Image" OnClick="ImageUpload" Size="Size.Medium" />
+                    </CardHeaderActions>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudTextField Label="Event Name"
+                                  Variant="Variant.Text"
+                                  InputType="InputType.Text"
+                                  @bind-Value="Model.EventName"
+                                  For="@(() => Model.EventName)" />
+                    <MudTextField Label="Event Goal"
+                                  Variant="Variant.Text"
+                                  InputType="InputType.Text"
+                                  @bind-Value="Model.EventGoal"
+                                  For="@(() => Model.EventGoal)"
+                                  Lines="8" />
+                    <MudDatePicker Label="Event Start Date"
+                                   PickerVariant="PickerVariant.Dialog"
+                                   Orientation="Orientation.Portrait"
+                                   @bind-Date="Model.EventStartDate"
+                                   For="@(() => Model.EventStartDate)" />
+                    <MudDatePicker Label="Event End Date"
+                                   PickerVariant="PickerVariant.Dialog"
+                                   Orientation="Orientation.Portrait"
+                                   Date="Model.EventEndDate"
+                                   For="@(() => Model.EventEndDate)"
+                                   DateChanged="@((e) => HandleSelectValue(e))" />
+                    <MudTextField Label="Event Description"
+                                  Variant="Variant.Text"
+                                  InputType="InputType.Text"
+                                  @bind-Value="Model.EventDesc"
+                                  For="@(() => Model.EventDesc)"
+                                  Lines="8" />
+                    <MudNumericField Label="Participants Number"
+                                     Variant="Variant.Text"
+                                     Min="1"
+                                     @bind-Value="Model.EventMemeberLimit"
+                                     For="@(() => Model.EventMemeberLimit)"></MudNumericField>
+                    <MudNumericField Label="Event Over Sale"
+                                     Min="1"
+                                     Max="100"
+                                     AdornmentIcon="@Icons.Filled.Percent"
+                                     Adornment="Adornment.End"
+                                     @bind-Value="Model.OverSale"
+                                     For="@(() => Model.OverSale)"></MudNumericField>
+                    <MudSelect T="BasicStatusDTO" Disabled=true Label="@SelectLabelStatus" AnchorOrigin="Origin.BottomCenter" @bind-Value="Model.Status" ToStringFunc="@((e) => e.Name)">
+                        @foreach (var status in Statuses)
+                        {
+                            <MudSelectItem Value="@status">@status.Name</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton Variant="Variant.Text"
+                               Color="Color.Primary"
+                               OnClick="Submit">@ButtonTitle</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
+</MudForm>

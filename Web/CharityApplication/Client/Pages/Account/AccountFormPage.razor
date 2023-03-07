@@ -1,0 +1,10 @@
+﻿@page "/account/edit/{IdAccount:int}"
+@page "/account/verification/{IdAccount:int}"
+@attribute [Authorize]
+@using CharityApplication.Client.Shared.Account
+
+
+<AccountFormComponent FormState="CharityApplication.Shared.Enums.FormState.EDIT" IdAccount="IdAccount" />
+<MudScrollToTop>
+    <MudFab Color="Color.Primary" Icon="@Icons.Filled.ArrowCircleUp" />
+</MudScrollToTop>

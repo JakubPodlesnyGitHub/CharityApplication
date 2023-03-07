@@ -1,0 +1,134 @@
+﻿@page "/companyaccount/registration"
+<MudContainer>
+    <MudForm Model="@Model" @ref="@Form" Validation="@(Validator.ValidateValue)" ValidationDelay="0">
+        <MudGrid Justify="Justify.Center">
+            <MudItem xs="12">
+                <MudCard>
+                    <MudCardHeader>
+                        <MudText Typo="Typo.h5" Align="Align.Left">Company Account Registration</MudText>
+                    </MudCardHeader>
+                    <MudCardContent>
+                        <MudTextField Label="Company Name"
+                                      Variant="Variant.Text"
+                                      @bind-Value="Model.Name"
+                                      InputType="InputType.Text"
+                                      For="@(() => Model.Name)" />
+                        <MudTextField Label="Company Phone Number"
+                                      Variant="Variant.Text"
+                                      @bind-Value="Model.Phone"
+                                      InputType="InputType.Telephone"
+                                      For="@(() => Model.Phone)" />
+                        <MudTextField Mask="@EmailMask"
+                                      Label="Email"
+                                      Variant="Variant.Text"
+                                      @bind-Value="Model.Email"
+                                      InputType="InputType.Text"
+                                      For="@(() => Model.Email)" />
+                        <MudTextField Label="Password"
+                                      Variant="Variant.Text"
+                                      @bind-Value="Model.Password"
+                                      For="@(() => Model.Password)"
+                                      InputType="@PasswordInput"
+                                      Adornment="Adornment.End"
+                                      AdornmentIcon="@PasswordInputIcon"
+                                      OnAdornmentClick="DisplayPassoword"
+                                      AdornmentAriaLabel="Show Password" />
+                        <MudTextField Label="Repeated Password"
+                                      Variant="Variant.Text"
+                                      @bind-Value="Model.RepeatedPassword"
+                                      For="@(() => Model.RepeatedPassword)"
+                                      InputType="@ReapetedPasswordInput"
+                                      Adornment="Adornment.End"
+                                      AdornmentIcon="@ReapetedPasswordIcon"
+                                      OnAdornmentClick="DisplayReapetedPassword"
+                                      AdornmentAriaLabel="Show Password" />
+                    </MudCardContent>
+                </MudCard>
+            </MudItem>
+            <MudItem xs="6">
+                <MudCard>
+                    <MudCardHeader>
+                        <MudText Typo="Typo.h5" Align="Align.Left">Company Account Address</MudText>
+                    </MudCardHeader>
+                    <MudCardContent>
+                        <MudTextField Label="Street"
+                                      Variant="Variant.Text"
+                                      @bind-Value="Model.CompanyAddress.Street"
+                                      InputType="InputType.Text"
+                                      For="@(() => Model.CompanyAddress.Street)" />
+                        <MudNumericField Label="Building Number"
+                                         Variant="Variant.Text"
+                                         Min="0"
+                                         @bind-Value="Model.CompanyAddress.BuildingNumber"
+                                         For="@(() => Model.CompanyAddress.BuildingNumber)" />
+                        <MudNumericField Label="Apratment Number"
+                                         Variant="Variant.Text"
+                                         Min="0"
+                                         @bind-Value="Model.CompanyAddress.ApartmentNumber"
+                                         For="@(() => Model.CompanyAddress.ApartmentNumber)" />
+                        <MudTextField Mask="@(new PatternMask("00-000"))"
+                                      Label="Zip Code"
+                                      Variant="Variant.Text"
+                                      @bind-Value="Model.CompanyAddress.ZipCode"
+                                      InputType="InputType.Text"
+                                      For="@(() => Model.CompanyAddress.ZipCode)" />
+                        <MudTextField Label="City"
+                                      Variant="Variant.Text"
+                                      @bind-Value="Model.CompanyAddress.City"
+                                      InputType="InputType.Text"
+                                      For="@(() => Model.CompanyAddress.City)" />
+                        <MudTextField Label="Province"
+                                      Variant="Variant.Text"
+                                      @bind-Value="Model.CompanyAddress.Province"
+                                      InputType="InputType.Text"
+                                      For="@(() => Model.CompanyAddress.Province)" />
+                        <MudTextField Label="Country"
+                                      Variant="Variant.Text"
+                                      @bind-Value="Model.CompanyAddress.Country"
+                                      InputType="InputType.Text"
+                                      For="@(() => Model.CompanyAddress.Country)" />
+                    </MudCardContent>
+                </MudCard>
+            </MudItem>
+            <MudItem xs="6">
+                <MudCard>
+                    <MudCardHeader>
+                        <MudText Typo="Typo.h5" Align="Align.Left">Company Account Representative</MudText>
+                    </MudCardHeader>
+                    <MudCardContent>
+                        <MudTextField Label="First Name"
+                                      Variant="Variant.Text"
+                                      @bind-Value="Model.CompanyRepresentative.FirstName"
+                                      InputType="InputType.Text"
+                                      For="@(() => Model.CompanyRepresentative.FirstName)" />
+                        <MudTextField Label="Last Name"
+                                      Variant="Variant.Text"
+                                      @bind-Value="Model.CompanyRepresentative.LastName"
+                                      InputType="InputType.Text"
+                                      For="@(() => Model.CompanyRepresentative.LastName)" />
+                        <MudTextField
+                                      Label="Representative Mail"
+                                      Variant="Variant.Text"
+                                      @bind-Value="Model.CompanyRepresentative.RepresentativeMail"
+                                      InputType="InputType.Text"
+                                      For="@(() => Model.CompanyRepresentative.RepresentativeMail)" />
+                        <MudTextField Label="Representative Phone"
+                                      Variant="Variant.Text"
+                                      @bind-Value="Model.CompanyRepresentative.RepresentativePhone"
+                                      InputType="InputType.Telephone"
+                                      For="@(() => Model.CompanyRepresentative.RepresentativePhone)" />
+                    </MudCardContent>
+                </MudCard>
+            </MudItem>
+        </MudGrid>
+    </MudForm>
+    <div class="d-flex flex-wrap mt-4">
+        <MudButton OnClick="Submit"
+                   Variant="Variant.Filled"
+                   Size="Size.Large"
+                   Color="Color.Primary">Register</MudButton>
+    </div>
+    <MudScrollToTop>
+        <MudFab Color="Color.Primary" Icon="@Icons.Filled.ArrowCircleUp" />
+    </MudScrollToTop>
+</MudContainer>

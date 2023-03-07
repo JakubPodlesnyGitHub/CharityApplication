@@ -1,0 +1,17 @@
+﻿@page "/event/create"
+@page "/event/edit/{IdEvent:int}"
+@attribute [Authorize]
+@using CharityApplication.Client.Shared.Event
+<MudContainer Fixed=true>
+    @if (IdEvent <=0)
+    {
+        <EventFormComponent FormState="FormState.CREATE" />
+    }
+    else
+    {
+        <EventFormComponent FormState="FormState.EDIT" IdEvent="IdEvent" />
+    }
+    <MudScrollToTop>
+        <MudFab Color="Color.Primary" Icon="@Icons.Filled.ArrowCircleUp" />
+    </MudScrollToTop>
+</MudContainer>

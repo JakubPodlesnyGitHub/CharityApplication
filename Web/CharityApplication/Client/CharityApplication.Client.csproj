@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Blazored.LocalStorage" Version="4.3.0" />
+		<PackageReference Include="Blazored.SessionStorage" Version="2.2.0" />
+		<PackageReference Include="FluentValidation" Version="11.4.0" />
+		<PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.9" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.10" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.10" PrivateAssets="all" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="6.0.10" />
+		<PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.12" />
+		<PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
+		<PackageReference Include="MudBlazor" Version="6.1.4" />
+		<PackageReference Include="QRCoderNetCore" Version="1.0.0" />
+		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.10.0" />
+		<PackageReference Include="Toolbelt.Blazor.HttpClientInterceptor" Version="10.2.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectCapability Include="ConfigurableFileNesting" />
+		<ProjectCapability Include="ConfigurableFileNestingFeatureEnabled" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Shared\CharityApplication.Shared.csproj" />
+	</ItemGroup>
+
+</Project>

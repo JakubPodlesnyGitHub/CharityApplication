@@ -1,0 +1,18 @@
+﻿@page "/group/create"
+@page "/group/edit/{IdGroup:int}"
+@attribute [Authorize]
+@using Application.Dtos.BasicDtos.Responses;
+@using CharityApplication.Client.Shared.Group
+<MudContainer Fixed=true>
+    @if(IdGroup <= 0)
+    {
+        <GroupFormComponent FormState="FormState.CREATE"/>
+    }
+    else
+    {
+        <GroupFormComponent FormState="FormState.EDIT" IdGroup="IdGroup"/>
+    }
+    <MudScrollToTop>
+        <MudFab Color="Color.Primary" Icon="@Icons.Filled.ArrowCircleUp" />
+    </MudScrollToTop>
+</MudContainer>

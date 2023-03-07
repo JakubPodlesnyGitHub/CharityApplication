@@ -1,0 +1,46 @@
+﻿@using Application.Dtos.BasicDtos.Responses;
+<MudForm Model="@Model" @ref="@Form" Validation="@(Validator.ValidateValue)" ValidationDelay="0">
+    <MudGrid Justify="Justify.Center">
+        <MudItem xs="12">
+            <MudCard>
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Align="Align.Left" Typo="Typo.body1">@FormTitle</MudText>
+                    </CardHeaderContent>
+                    <CardHeaderActions>
+                        <MudIconButton Color="Color.Primary" Icon="@Icons.Material.Outlined.Image" OnClick="ImageUpload" Size="Size.Medium" />
+                    </CardHeaderActions>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudSelect T="BasicGroupNameDTO" Label="@SelectLabelGroupName" AnchorOrigin="Origin.BottomCenter" @bind-Value="Model.GroupName" ToStringFunc="@((e) => e.Name)">
+                        @foreach (var groupName in GroupNames)
+                        {
+                            <MudSelectItem Value="@groupName">@groupName.Name</MudSelectItem>
+                        }
+                    </MudSelect>
+                    <MudTextField Label="Description"
+                                  Variant="Variant.Text"
+                                  @bind-Value="Model.Description"
+                                  InputType="InputType.Text"
+                                  For="@(() => Model.Description)"
+                                  Lines="8"></MudTextField>
+                    <MudNumericField Label="Group Capacity"
+                                     Variant="Variant.Text"
+                                     Min="1"
+                                     Max="30"
+                                     @bind-Value="Model.NumberOfParticipants"
+                                     For="@(() => Model.NumberOfParticipants)"></MudNumericField>
+                    <MudSelect T="bool" Label="@SelectLabelGroupType" AnchorOrigin="Origin.BottomCenter" @bind-Value="Model.GroupType">
+                        <MudSelectItem Value="true">Private</MudSelectItem>
+                        <MudSelectItem Value="false">Visible</MudSelectItem>
+                    </MudSelect>
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton Variant="Variant.Text"
+                               Color="Color.Primary"
+                               OnClick="Submit">@ButtonTitle</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
+</MudForm>

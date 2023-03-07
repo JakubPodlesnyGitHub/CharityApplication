@@ -1,0 +1,32 @@
+﻿<MudList Clickable=@IsClickable Disabled=@IsDisabled>
+    <MudListSubheader>
+        <MudText Align="Align.Left" Typo="Typo.body1">@ListTitle</MudText>
+    </MudListSubheader>
+    @if (TopCompanyAccountsWithBadgePoints.Any())
+    {
+        @foreach (var account in TopCompanyAccountsWithBadgePoints)
+        {
+            <MudListItem OnClick="@(() => NavigationManager.NavigateTo($"/account/{account.IdAccount}"))" Disabled=@IsDisabled>
+                <MudCard>
+                    <MudCardHeader>
+                        <CardHeaderAvatar>
+                            <MudAvatar Image="@account.Base64dataPicture"
+                               Color="Color.Secondary">
+                                @account.AccountCredentials
+                            </MudAvatar>
+                        </CardHeaderAvatar>
+                        <CardHeaderContent>
+                            <MudText>@account.CompanyAccount.Name</MudText>
+                        </CardHeaderContent>
+                    </MudCardHeader>
+                </MudCard>
+            </MudListItem>
+        }
+
+    }
+    else
+    {
+        <MudChip Color="Color.Error" Icon="@Icons.Material.Filled.Error" Text="There are no provided data" />
+    }
+
+</MudList>

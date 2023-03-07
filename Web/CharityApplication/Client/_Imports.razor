@@ -1,0 +1,25 @@
+﻿@using System.Net.Http
+@using System.Net.Http.Json
+@using Blazored.LocalStorage;
+@using Blazored.SessionStorage;
+@using CharityApplication.Client.Connection.Services;
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Routing
+@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.AspNetCore.Components.Web.Virtualization
+@using Microsoft.AspNetCore.Components.WebAssembly.Http
+@using Microsoft.JSInterop
+@using CharityApplication.Client
+@using CharityApplication.Client.Shared
+@using MudBlazor
+@using CharityApplication.Client.Shared.CommonComponents
+@using CharityApplication.Client.Shared.TopRankingLists
+@using CharityApplication.Client.Shared.Lists
+@using CharityApplication.Shared.Enums;
+@using Microsoft.AspNetCore.Authorization;
+@inject NavigationManager NavigationManager
+@inject HttpInterceptorService HttpInterceptorService
+@inject ILocalStorageService LocalStorageService
+@inject ISnackbar SnackBar
+@inject IJSRuntime JSRuntime

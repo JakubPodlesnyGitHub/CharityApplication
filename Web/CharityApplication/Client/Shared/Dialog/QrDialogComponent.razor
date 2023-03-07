@@ -1,0 +1,11 @@
+﻿@if (!string.IsNullOrEmpty(QrCodeStr))
+{
+    <MudDialog>
+        <TitleContent>
+            <MudText Align="Align.Left" Typo="Typo.body1">Scan To Confirm Your Presence </MudText>
+        </TitleContent>
+        <DialogContent>
+            <MudImage ObjectFit="ImageFit" Src="@QrCodeStr" Elevation="25" Class="rounded-lg" />
+        </DialogContent>
+    </MudDialog>
+}
