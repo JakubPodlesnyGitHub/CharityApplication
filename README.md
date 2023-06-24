@@ -1,5 +1,6 @@
 # CharityApplication
-## As a solution to the problem presented in the engineering thesis, a web application was created that supports legal entities in managing charitable and non-profit events.
+## Bachelor of Engineering Project
+### As a solution to the problem presented in the engineering thesis, a web application was created that supports legal entities in managing charitable and non-profit events.
 
 The following project presents the process of creating a web application.
 The main purpose of the application is to support and enable entities
